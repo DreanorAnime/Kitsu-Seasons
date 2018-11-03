@@ -21,7 +21,7 @@ namespace Kitsu.User
     public class UserDataModel : IUserData
     {
         [JsonProperty("id")]
-        public string Id { get; private set; }
+        public int Id { get; private set; }
         
         [JsonProperty("type")]
         public string Type { get; private set; }

@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Threading.Tasks;
 // ReSharper disable UnusedMember.Global
 
 namespace Kitsu.Anime
@@ -45,12 +45,6 @@ namespace Kitsu.Anime
             var json = await Kitsu.Client.GetStringAsync($"{Kitsu.BaseUri}/anime/{id}");
             var anime = JsonConvert.DeserializeObject<AnimeByIdModel>(json);
             return anime;
-        }
-
-        public static async Task<dynamic> GetAnimeFromLibrary(int entry)
-        {
-            var json = await Kitsu.Client.GetStringAsync($"{Kitsu.BaseUri}/library-entries/{entry}/anime");
-            return JsonConvert.DeserializeObject(json);
         }
 
         public enum Season

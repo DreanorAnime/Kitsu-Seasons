@@ -6,6 +6,12 @@ namespace Kitsu.User
 {
     public static class User
     {
+        public static async Task<dynamic> GetAnimeFromLibrary(int userId, int animeId)
+        {
+            var json = await Kitsu.Client.GetStringAsync($"{Kitsu.BaseUri}/users/{userId}/library-entries?filter[animeId]={animeId}");
+            return JsonConvert.DeserializeObject(json);
+        }
+
         public static async Task<dynamic> GetUserLibrary(int userId)
         {
             var json = await Kitsu.Client.GetStringAsync($"{Kitsu.BaseUri}/users/{userId}/library-entries?page[limit]=500&page[offset]=0");

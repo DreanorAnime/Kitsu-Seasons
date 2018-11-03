@@ -16,7 +16,7 @@ namespace Kitsu.User
     
     public interface IUserData
     {
-        string Id { get; }
+        int Id { get; }
         string Type { get; }
         UserAttributesModel Attributes { get; }
         UserRelationshipsModel Relationships { get; }
