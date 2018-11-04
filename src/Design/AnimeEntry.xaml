@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Design.AnimeEntry"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             BorderBrush="Black"
+             BorderThickness="1"
+             Width="200">
+    <Grid>
+        <Image Source="large.jpg" />
+        <TextBlock FontSize="8"
+                   TextWrapping="Wrap"
+                   Foreground="White"
+                   HorizontalAlignment="Center" 
+                   TextAlignment="Center"
+                   VerticalAlignment="Top">
+            <TextBlock.Background>
+                <SolidColorBrush Color="Black" Opacity="0.7" />
+            </TextBlock.Background>
+            Donten ni Warau Gaiden: Shukumei, Soutou no Fuuma<LineBreak/>
+            曇天に笑う＜外伝＞ ～宿命、双頭の風魔～
+           
+        </TextBlock>
+    </Grid>
+</UserControl>
