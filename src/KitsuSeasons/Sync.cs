@@ -1,5 +1,5 @@
-﻿using KitsuApi;
-using KitsuApi.Api;
+﻿using Kitsu;
+using Kitsu.Api;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KitsuApi.Api
+namespace Kitsu.Api
 {
     public static class Authentication
     {

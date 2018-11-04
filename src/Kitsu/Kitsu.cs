@@ -1,11 +1,11 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace KitsuApi
+namespace Kitsu
 {
     public class Kitsu
     {
-        private static readonly string UserAgent = $"KitsuApi-KitsuSeasons";
+        private static readonly string UserAgent = $"KitsuSeasons";
 
         public const string BaseUri = "https://kitsu.io/api/edge";
         public const string BaseAuthUri = "https://kitsu.io/api/oauth";

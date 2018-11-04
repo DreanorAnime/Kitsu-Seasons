@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KitsuApi
+namespace Kitsu
 {
     public class SeasonalAnime
     {

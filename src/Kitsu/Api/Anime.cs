@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
 
-namespace KitsuApi.Api
+namespace Kitsu.Api
 {
     public class Anime
     {

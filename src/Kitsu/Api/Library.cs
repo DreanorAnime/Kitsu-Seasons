@@ -3,7 +3,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace KitsuApi.Api
+namespace Kitsu.Api
 {
     public class Library
     {
@@ -15,8 +15,6 @@ namespace KitsuApi.Api
 
         public static async Task<string> AddAnime(int userId, int animeId, Status status)
         {
-            var baseAddress = new Uri("https://kitsu.io/api/edge/");
-
             string body = @"{  
                ""data"":{  
                   ""type"":""libraryEntries"",

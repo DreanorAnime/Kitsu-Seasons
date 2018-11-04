@@ -1,4 +1,4 @@
-﻿namespace KitsuApi
+﻿namespace Kitsu
 {
     public enum Season
     {
