@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KitsuSeasons", "KitsuSeason
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitsu", "Kitsu\Kitsu.csproj", "{EDEF2165-8D09-41B0-A515-5341E9509466}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Design", "Design\Design.csproj", "{5F35F465-C926-4490-86F4-151C8861F65F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EDEF2165-8D09-41B0-A515-5341E9509466}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDEF2165-8D09-41B0-A515-5341E9509466}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDEF2165-8D09-41B0-A515-5341E9509466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F35F465-C926-4490-86F4-151C8861F65F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F35F465-C926-4490-86F4-151C8861F65F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F35F465-C926-4490-86F4-151C8861F65F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F35F465-C926-4490-86F4-151C8861F65F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

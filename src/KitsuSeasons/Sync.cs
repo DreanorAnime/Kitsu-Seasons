@@ -36,7 +36,7 @@ namespace KitsuSeasons
             {
                 season.AddRange(await LoopSeasons((string)result.links.next, userId));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
 
