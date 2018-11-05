@@ -6,21 +6,92 @@
              mc:Ignorable="d" 
              BorderBrush="Black"
              BorderThickness="1"
-             Width="200">
+             Width="284"
+             Height="402">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-        <Image Source="large.jpg" />
-        <TextBlock FontSize="8"
-                   TextWrapping="Wrap"
-                   Foreground="White"
-                   HorizontalAlignment="Center" 
-                   TextAlignment="Center"
-                   VerticalAlignment="Top">
+        <Image Name="Cover"
+               Source="small.jpg" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center"/>
+
+        <TextBlock HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch"
+                   Panel.ZIndex="100">
             <TextBlock.Background>
-                <SolidColorBrush Color="Black" Opacity="0.7" />
+                <SolidColorBrush Color="Black" Opacity="0.4" />
             </TextBlock.Background>
-            Donten ni Warau Gaiden: Shukumei, Soutou no Fuuma<LineBreak/>
-            曇天に笑う＜外伝＞ ～宿命、双頭の風魔～
-           
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Hidden" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=Cover, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
         </TextBlock>
+
+        <TextBlock FontSize="18"
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Stretch" 
+                   TextAlignment="Center"
+                   VerticalAlignment="Top"
+                   Text="Gyakuten Saiban: Sono Shinjitsu, Igi Ari! Season 2"
+                   MinHeight="50">
+            <TextBlock.Background>
+                <SolidColorBrush Color="Black" Opacity="0.4" />
+            </TextBlock.Background>
+        </TextBlock>
+
+        <Grid VerticalAlignment="Bottom"
+              HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.4"/>
+            </Grid.Background>
+    
+            <TextBlock Grid.ColumnSpan="3"
+                       Text="Aired: Dec 25, 2017 to Jul 7, 2018"/>
+            
+            <TextBlock Grid.Row="1"
+                       Text="Score: 80.33%"/>
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="3"
+                       Text="Episodes: 26"/>
+
+            <TextBlock Grid.Row="2"
+                       Text="TV"/>
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       Text="Finished"/>
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="2"
+                       Text="PG"/>
+        </Grid>
     </Grid>
 </UserControl>

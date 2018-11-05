@@ -115,7 +115,7 @@
     <Resource Include="kit.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="large.jpg" />
+    <Resource Include="small.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

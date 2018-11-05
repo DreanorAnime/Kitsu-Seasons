@@ -8,6 +8,7 @@
                       ShowIconOnTitleBar="True"
                       ShowTitleBar="True"
                       Icon="kit.png"
+                      NonActiveWindowTitleBrush="#402F3F"
                       BorderBrush="#402F3F"
                       Background="#332532"
                       TitleCaps="False"
@@ -25,7 +26,6 @@
     </Window.Resources>
 
     <Grid>
-        <local:AnimeEntry Height="200" Width="200" Background="AliceBlue"></local:AnimeEntry>
-
+        <local:AnimeEntry Background="Pink"></local:AnimeEntry>
     </Grid>
 </Controls:MetroWindow>
