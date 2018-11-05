@@ -7,7 +7,8 @@
              BorderBrush="Black"
              BorderThickness="1"
              Width="284"
-             Height="402">
+             Height="402"
+             Margin="6">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="12"/>

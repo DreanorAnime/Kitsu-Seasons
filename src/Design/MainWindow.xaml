@@ -14,18 +14,42 @@
                       TitleCaps="False"
                       Width="800">
     <Window.Resources>
-        <Style x:Key="HeaderCasing" 
-               BasedOn="{StaticResource MetroDataGridColumnHeader}" 
-               TargetType="{x:Type DataGridColumnHeader}">
+        <Style TargetType="Expander" BasedOn="{StaticResource MetroExpander}">
             <Setter Property="Controls:ControlsHelper.ContentCharacterCasing" Value="Normal"/>
         </Style>
-
+        
         <Style x:Key="CollapsedHeader" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Visibility" Value="Collapsed" />
         </Style>
     </Window.Resources>
 
     <Grid>
-        <local:AnimeEntry Background="Pink"></local:AnimeEntry>
+        <StackPanel>
+            <Expander Header="Not in list" 
+                  Background="#402F3F" 
+                  BorderBrush="#402F3F"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+                <WrapPanel FlowDirection="LeftToRight" Orientation="Horizontal">
+                    <local:AnimeEntry></local:AnimeEntry>
+                    <local:AnimeEntry></local:AnimeEntry>
+                    <local:AnimeEntry></local:AnimeEntry>
+                    <local:AnimeEntry></local:AnimeEntry>
+                    <local:AnimeEntry></local:AnimeEntry>
+                </WrapPanel>
+            </Expander>
+
+            <Expander Header="On hold" Background="#402F3F" BorderBrush="#402F3F"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+                <WrapPanel FlowDirection="LeftToRight" Orientation="Horizontal">
+                    <local:AnimeEntry></local:AnimeEntry>
+                    <local:AnimeEntry></local:AnimeEntry>
+                    <local:AnimeEntry></local:AnimeEntry>
+                    <local:AnimeEntry></local:AnimeEntry>
+                    <local:AnimeEntry></local:AnimeEntry>
+                </WrapPanel>
+            </Expander>
+        </StackPanel>
     </Grid>
 </Controls:MetroWindow>
