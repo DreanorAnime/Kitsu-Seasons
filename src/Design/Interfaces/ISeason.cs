@@ -1,21 +1,23 @@
-﻿namespace Design.Interfaces
+﻿using Design.Enums;
+
+namespace Design.Interfaces
 {
     public interface ISeason
     {
-        string Image { get; }
+        string ImagePath { get; }
 
         string Name { get; }
 
-        string EpisodeText { get; } //Episodes: xx
+        string EpisodeText { get; }
 
-        string Type { get; } //TV, OVA...
+        SeasonType Type { get; } 
 
-        string Status { get; } //Airing, Finished...
+        AiringStatus Status { get; }
 
-        string Score { get; } //Score: 80.33%
+        string ScoreText { get; }
 
-        string Aired { get; } //Aired: Dec 25, 2017 to Jul 7, 2018
+        string AiredText { get; } 
 
-        string Rating { get; } //PG, R...
+        AgeRating Rating { get; }
     }
 }

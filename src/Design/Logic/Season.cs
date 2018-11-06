@@ -1,23 +1,36 @@
-﻿using Design.Interfaces;
+﻿using Design.Enums;
+using Design.Interfaces;
 
 namespace Design.Logic
 {
     public class Season : ISeason
     {
-        public string Image => throw new System.NotImplementedException();
+        public Season(string name, int episodes, string imagePath, SeasonType type, AiringStatus status, double score, string airTime, AgeRating rating)
+        {
+            Name = name;
+            ImagePath = imagePath;
+            EpisodeText = $"Episodes: {episodes}";
+            Type = type;
+            Status = status;
+            ScoreText = $"Score: {score}%";
+            AiredText = $"Aired: Dec 25, 2017 to Jul 7, 2018"; //airTime
+            Rating = rating;
+        }
 
-        public string Name => throw new System.NotImplementedException();
+        public string ImagePath { get; }
 
-        public string EpisodeText => throw new System.NotImplementedException();
+        public string Name { get; }
 
-        public string Type => throw new System.NotImplementedException();
+        public string EpisodeText { get; }
 
-        public string Status => throw new System.NotImplementedException();
+        public SeasonType Type { get; }
 
-        public string Score => throw new System.NotImplementedException();
+        public AiringStatus Status { get; }
 
-        public string Aired => throw new System.NotImplementedException();
+        public string ScoreText { get; }
 
-        public string Rating => throw new System.NotImplementedException();
+        public string AiredText { get; }
+
+        public AgeRating Rating { get; }
     }
 }

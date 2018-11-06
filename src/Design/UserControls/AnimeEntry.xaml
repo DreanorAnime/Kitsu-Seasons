@@ -20,7 +20,7 @@
 
     <Grid>
         <Image Name="Cover"
-               Source="{Binding Path=Image}" 
+               Source="{Binding Path=ImagePath}" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Center"/>
 
@@ -74,10 +74,10 @@
             </Grid.Background>
     
             <TextBlock Grid.ColumnSpan="3"
-                       Text="{Binding Path=Aired}"/>
+                       Text="{Binding Path=AiredText}"/>
             
             <TextBlock Grid.Row="1"
-                       Text="{Binding Path=Score}"/>
+                       Text="{Binding Path=ScoreText}"/>
 
             <TextBlock Grid.Row="1"
                        Grid.Column="3"

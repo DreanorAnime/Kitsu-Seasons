@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Enums\AgeRating.cs" />
+    <Compile Include="Enums\AiringStatus.cs" />
+    <Compile Include="Enums\SeasonType.cs" />
     <Compile Include="Interfaces\ISeasonExpander.cs" />
     <Compile Include="Logic\SeasonExpander.cs" />
     <Compile Include="UserControls\SeasonExpander.xaml.cs">
