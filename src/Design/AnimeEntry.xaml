@@ -20,7 +20,7 @@
 
     <Grid>
         <Image Name="Cover"
-               Source="small.jpg" 
+               Source="img\small.jpg" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Center"/>
 

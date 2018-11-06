@@ -1,0 +1,77 @@
+﻿<Controls:MetroWindow x:Class="Design.MainView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:local="clr-namespace:Design"
+                      Title="Kitsu Seasons"
+                      Height="600"
+                      ShowIconOnTitleBar="True"
+                      ShowTitleBar="True"
+                      Icon="img\kit.png"
+                      NonActiveWindowTitleBrush="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                      NonActiveBorderBrush="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                      BorderBrush="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                      WindowStartupLocation="CenterScreen"
+                      Background="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                      WindowButtonCommandsOverlayBehavior="Always"
+                      TitleCaps="False"
+                      Width="924">
+    <Window.Resources>
+        <Style TargetType="Expander" BasedOn="{StaticResource MetroExpander}">
+            <Setter Property="Controls:ControlsHelper.ContentCharacterCasing" Value="Normal"/>
+        </Style>
+
+        <Style x:Key="CollapsedHeader" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Controls:Flyout Header="Kitsu Seasons" 
+                         Position="Left"
+                         CloseButtonVisibility="Collapsed"
+                         IsOpen="{Binding Path=OptionsAreVisible, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0,0,0,259"
+                         Panel.ZIndex="101"
+                         Background="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                         BorderBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
+                         BorderThickness="2">
+        </Controls:Flyout>
+
+        <Button HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                BorderBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
+                Command="{Binding Path=OpenOptionsCmd}"
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Panel.ZIndex="100">
+            <Grid>
+                <Image Source="img\kit.png" 
+                       Width="50"
+                       VerticalAlignment="Stretch"
+                       HorizontalAlignment="Stretch" />
+            </Grid>
+        </Button>
+
+        <ScrollViewer>
+            <Expander Header="Not in list" 
+                      Background="{DynamicResource ResourceKey=LightPurpleBrush}" 
+                      BorderBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+                <ItemsControl ItemsSource="{Binding Path=SeasonNotInList, UpdateSourceTrigger=PropertyChanged}" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel FlowDirection="LeftToRight" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:AnimeEntry/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Expander>
+        </ScrollViewer>
+    </Grid>
+</Controls:MetroWindow>
