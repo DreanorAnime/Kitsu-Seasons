@@ -65,7 +65,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AnimeEntry.xaml">
+    <Compile Include="Interfaces\ISeasonExpander.cs" />
+    <Compile Include="Logic\SeasonExpander.cs" />
+    <Compile Include="UserControls\SeasonExpander.xaml.cs">
+      <DependentUpon>SeasonExpander.xaml</DependentUpon>
+    </Compile>
+    <Page Include="UserControls\AnimeEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -73,7 +78,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AnimeEntry.xaml.cs">
+    <Compile Include="UserControls\AnimeEntry.xaml.cs">
       <DependentUpon>AnimeEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -89,6 +94,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\SeasonExpander.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

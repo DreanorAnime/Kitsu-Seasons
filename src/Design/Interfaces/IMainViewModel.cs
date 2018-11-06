@@ -6,7 +6,7 @@ namespace Design.Interfaces
 {
     public interface IMainViewModel : INotifyPropertyChanged
     {
-        ObservableCollection<ISeason> SeasonNotInList { get; }
+        ObservableCollection<ISeasonExpander> SeasonExpanders { get; }
 
         ActionCommand OpenOptionsCmd { get; }
 

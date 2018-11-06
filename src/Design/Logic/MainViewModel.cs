@@ -14,7 +14,11 @@ namespace Design.Logic
         {
             PropertyChanged += OnPropertyChanged;
 
-            SeasonNotInList = new ObservableCollection<ISeason> { new Season(), new Season() };
+            SeasonExpanders = new ObservableCollection<ISeasonExpander>
+            {
+                new SeasonExpander(new ObservableCollection<ISeason>{new Season(), new Season() }, "test"),
+                new SeasonExpander(new ObservableCollection<ISeason> { new Season(), new Season() }, "test")
+            };
         }
 
         public bool OptionsAreVisible
@@ -23,10 +27,10 @@ namespace Design.Logic
             set { Set(x => x.OptionsAreVisible, value); }
         }
 
-        public ObservableCollection<ISeason> SeasonNotInList
+        public ObservableCollection<ISeasonExpander> SeasonExpanders
         {
-            get { return Get(x => x.SeasonNotInList); }
-            private set { Set(x => x.SeasonNotInList, value); }
+            get { return Get(x => x.SeasonExpanders); }
+            private set { Set(x => x.SeasonExpanders, value); }
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)

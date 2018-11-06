@@ -16,16 +16,6 @@
                       WindowButtonCommandsOverlayBehavior="Always"
                       TitleCaps="False"
                       Width="924">
-    <Window.Resources>
-        <Style TargetType="Expander" BasedOn="{StaticResource MetroExpander}">
-            <Setter Property="Controls:ControlsHelper.ContentCharacterCasing" Value="Normal"/>
-        </Style>
-
-        <Style x:Key="CollapsedHeader" TargetType="{x:Type GridViewColumnHeader}">
-            <Setter Property="Visibility" Value="Collapsed" />
-        </Style>
-    </Window.Resources>
-
     <Grid>
         <Controls:Flyout Header="Kitsu Seasons" 
                          Position="Left"
@@ -54,24 +44,13 @@
         </Button>
 
         <ScrollViewer>
-            <Expander Header="Not in list" 
-                      Background="{DynamicResource ResourceKey=LightPurpleBrush}" 
-                      BorderBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch">
-                <ItemsControl ItemsSource="{Binding Path=SeasonNotInList, UpdateSourceTrigger=PropertyChanged}" >
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel FlowDirection="LeftToRight" Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <local:AnimeEntry/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Expander>
+            <ItemsControl ItemsSource="{Binding Path=SeasonExpanders, UpdateSourceTrigger=PropertyChanged}" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:SeasonExpander />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
     </Grid>
 </Controls:MetroWindow>

@@ -20,7 +20,7 @@
 
     <Grid>
         <Image Name="Cover"
-               Source="img\small.jpg" 
+               Source="{Binding Path=Image}" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Center"/>
 
@@ -50,7 +50,7 @@
                    HorizontalAlignment="Stretch" 
                    TextAlignment="Center"
                    VerticalAlignment="Top"
-                   Text="Gyakuten Saiban: Sono Shinjitsu, Igi Ari! Season 2"
+                   Text="{Binding Path=Name}"
                    MinHeight="50">
             <TextBlock.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4" />
@@ -74,25 +74,25 @@
             </Grid.Background>
     
             <TextBlock Grid.ColumnSpan="3"
-                       Text="Aired: Dec 25, 2017 to Jul 7, 2018"/>
+                       Text="{Binding Path=Aired}"/>
             
             <TextBlock Grid.Row="1"
-                       Text="Score: 80.33%"/>
+                       Text="{Binding Path=Score}"/>
 
             <TextBlock Grid.Row="1"
                        Grid.Column="3"
-                       Text="Episodes: 26"/>
+                       Text="{Binding Path=EpisodeText}"/>
 
             <TextBlock Grid.Row="2"
-                       Text="TV"/>
+                       Text="{Binding Path=Type}"/>
 
             <TextBlock Grid.Row="2"
                        Grid.Column="1"
-                       Text="Finished"/>
+                       Text="{Binding Path=Status}"/>
 
             <TextBlock Grid.Row="2"
                        Grid.Column="2"
-                       Text="PG"/>
+                       Text="{Binding Path=Rating}"/>
         </Grid>
     </Grid>
 </UserControl>
