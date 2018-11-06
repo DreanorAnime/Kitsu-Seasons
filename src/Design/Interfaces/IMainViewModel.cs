@@ -10,6 +10,8 @@ namespace Design.Interfaces
 
         ActionCommand OpenOptionsCmd { get; }
 
+        ActionCommand CreateAccountCmd { get; }
+
         bool OptionsAreVisible { get; set; }
     }
 }

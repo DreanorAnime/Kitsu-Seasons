@@ -4,12 +4,14 @@ using ModelViewViewModel.Base;
 using ModelViewViewModel.commands;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Design.Logic
 {
     public class MainViewModel : ViewModelBase<IMainViewModel>, IMainViewModel
     {
         public ActionCommand OpenOptionsCmd => new ActionCommand(() => OptionsAreVisible = true);
+        public ActionCommand CreateAccountCmd => new ActionCommand(() => Process.Start("https://kitsu.io/"));
 
         public MainViewModel()
         {

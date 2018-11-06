@@ -8,7 +8,7 @@
                       ShowIconOnTitleBar="True"
                       ShowTitleBar="True"
                       Icon="img\kit.png"
-                      NonActiveWindowTitleBrush="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                      NonActiveWindowTitleBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
                       NonActiveBorderBrush="{DynamicResource ResourceKey=DarkPurpleBrush}"
                       BorderBrush="{DynamicResource ResourceKey=DarkPurpleBrush}"
                       WindowStartupLocation="CenterScreen"
@@ -16,34 +16,61 @@
                       WindowButtonCommandsOverlayBehavior="Always"
                       TitleCaps="False"
                       Width="924">
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="settings" 
+                    Command="{Binding Path=OpenOptionsCmd}"/>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Header="Kitsu Seasons" 
+                             Position="Left"
+                             IsPinned="False"
+                             CloseButtonVisibility="Collapsed"
+                             IsOpen="{Binding Path=OptionsAreVisible, UpdateSourceTrigger=PropertyChanged}"
+                             Background="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                             BorderBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
+                             BorderThickness="2">
+                <StackPanel>
+                    <Separator Background="{DynamicResource ResourceKey=LightPurpleBrush}"
+                               Margin="0 0 0 6">
+                        <Separator.RenderTransform>
+                            <ScaleTransform ScaleY="3" />
+                        </Separator.RenderTransform>
+                    </Separator>
+                    <TextBox Controls:TextBoxHelper.Watermark="Email address"  
+                             Margin="6"/>
+                    <PasswordBox Controls:TextBoxHelper.Watermark="Password"   
+                                 Margin="6"/>
+                    <TextBlock Margin="6">           
+                        <Hyperlink Command="{Binding Path=CreateAccountCmd}">
+                            Create a new Kitsu account
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+    
     <Grid>
-        <Controls:Flyout Header="Kitsu Seasons" 
-                         Position="Left"
-                         CloseButtonVisibility="Collapsed"
-                         IsOpen="{Binding Path=OptionsAreVisible, UpdateSourceTrigger=PropertyChanged}"
-                         Margin="0,0,0,259"
-                         Panel.ZIndex="101"
-                         Background="{DynamicResource ResourceKey=DarkPurpleBrush}"
-                         BorderBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
-                         BorderThickness="2">
-        </Controls:Flyout>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="37"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <Button HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Background="{DynamicResource ResourceKey=DarkPurpleBrush}"
-                BorderBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
-                Command="{Binding Path=OpenOptionsCmd}"
-                Style="{DynamicResource MetroCircleButtonStyle}"
-                Panel.ZIndex="100">
-            <Grid>
-                <Image Source="img\kit.png" 
-                       Width="50"
-                       VerticalAlignment="Stretch"
-                       HorizontalAlignment="Stretch" />
-            </Grid>
-        </Button>
-
-        <ScrollViewer>
+        <StackPanel Grid.Row="0"
+                    Margin="6"
+                    Orientation="Horizontal">
+            <Controls:SplitButton HorizontalContentAlignment="Left"
+                                  SelectedIndex="2"
+                                  ItemsSource="{Binding Albums}"
+                                  DisplayMemberPath="Title"/>
+            <Button Content="Refresh"/>
+        </StackPanel>
+        
+        <ScrollViewer Grid.Row="1">
             <ItemsControl ItemsSource="{Binding Path=SeasonExpanders, UpdateSourceTrigger=PropertyChanged}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
