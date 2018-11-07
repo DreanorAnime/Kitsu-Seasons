@@ -129,7 +129,7 @@
     <Resource Include="img\small.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Library\mvvm\ModelViewViewModel.csproj">
+    <ProjectReference Include="..\submodules\Library\mvvm\ModelViewViewModel.csproj">
       <Project>{a164b64e-e4d4-4858-8cff-b90c22f22fdb}</Project>
       <Name>ModelViewViewModel</Name>
     </ProjectReference>

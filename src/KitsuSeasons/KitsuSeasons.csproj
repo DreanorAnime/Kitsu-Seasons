@@ -83,7 +83,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kitsu\Kitsu.csproj">
+    <ProjectReference Include="..\submodules\Kitsu\Kitsu.csproj">
       <Project>{edef2165-8d09-41b0-a515-5341e9509466}</Project>
       <Name>Kitsu</Name>
     </ProjectReference>
