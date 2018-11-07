@@ -11,7 +11,8 @@ namespace Design
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            IMainViewModel viewModel = new MainViewModel();
+            IController controller = new Controller();
+            IMainViewModel viewModel = new MainViewModel(controller);
             IMainView view = new MainView(viewModel);
             view.Show();
         }

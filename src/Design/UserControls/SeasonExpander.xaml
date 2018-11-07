@@ -22,7 +22,7 @@
               BorderBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch">
-        <ItemsControl ItemsSource="{Binding Path=SeasonList, UpdateSourceTrigger=PropertyChanged}" >
+        <ItemsControl ItemsSource="{Binding Path=SeasonEntries, UpdateSourceTrigger=PropertyChanged}" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel FlowDirection="LeftToRight" Orientation="Horizontal"/>

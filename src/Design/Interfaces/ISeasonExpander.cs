@@ -4,7 +4,7 @@ namespace Design.Interfaces
 {
     public interface ISeasonExpander
     {
-        ObservableCollection<ISeason> SeasonList { get; }
+        ObservableCollection<ISeasonEntry> SeasonEntries { get; }
 
         string Header { get; }
     }

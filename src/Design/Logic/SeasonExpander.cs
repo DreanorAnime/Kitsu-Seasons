@@ -5,14 +5,14 @@ namespace Design.Logic
 {
     public class SeasonExpander : ISeasonExpander
     {
-        public ObservableCollection<ISeason> SeasonList { get; private set; }
-
-        public string Header { get; private set; }
-
-        public SeasonExpander(ObservableCollection<ISeason> seasonList, string header)
+        public SeasonExpander(ObservableCollection<ISeasonEntry> seasonList, string header)
         {
-            SeasonList = seasonList;
+            SeasonEntries = seasonList;
             Header = header;
         }
+
+        public ObservableCollection<ISeasonEntry> SeasonEntries { get; private set; }
+
+        public string Header { get; private set; }
     }
 }

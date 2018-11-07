@@ -3,9 +3,9 @@ using Design.Interfaces;
 
 namespace Design.Logic
 {
-    public class Season : ISeason
+    public class SeasonEntry : ISeasonEntry
     {
-        public Season(string name, int episodes, string imagePath, SeasonType type, AiringStatus status, double score, string airTime, AgeRating rating)
+        public SeasonEntry(string name, int episodes, string imagePath, SeasonType type, AiringStatus status, double score, string airTime, AgeRating rating)
         {
             Name = name;
             ImagePath = imagePath;

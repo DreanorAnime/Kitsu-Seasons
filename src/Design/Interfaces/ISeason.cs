@@ -2,7 +2,7 @@
 
 namespace Design.Interfaces
 {
-    public interface ISeason
+    public interface ISeasonEntry
     {
         string ImagePath { get; }
 

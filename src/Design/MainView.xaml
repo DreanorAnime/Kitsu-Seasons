@@ -3,6 +3,9 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:local="clr-namespace:Design"
+                      xmlns:Behaviors="clr-namespace:Design.Behaviors"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                       Title="Kitsu Seasons"
                       Height="600"
                       ShowIconOnTitleBar="True"
@@ -53,23 +56,57 @@
             </Controls:Flyout>
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>
-    
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="37"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <StackPanel Grid.Row="0"
-                    Margin="6"
-                    Orientation="Horizontal">
+        <Grid Grid.Row="0"
+              Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Margin="6 12 0 12"
+                    Command="{Binding Path=PreviousSeasonCmd}">
+               <iconPacks:PackIconMaterial Kind="ChevronLeft" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Button>
             <Controls:SplitButton HorizontalContentAlignment="Left"
+                                  Grid.Column="1"
+                                  Margin="0 11 0 11"
                                   SelectedIndex="2"
-                                  ItemsSource="{Binding Albums}"
-                                  DisplayMemberPath="Title"/>
-            <Button Content="Refresh"/>
-        </StackPanel>
-        
+                                  ItemsSource="{Binding Path=SeasonList, UpdateSourceTrigger=PropertyChanged}"
+                                  IsSynchronizedWithCurrentItem="True"
+                                  SelectedItem="{Binding Path=SelectedSeason, UpdateSourceTrigger=PropertyChanged}"
+                                  Width="250">
+                <!--<i:Interaction.Behaviors>
+                    <Behaviors:ScrollIntoViewBehavior/>
+                </i:Interaction.Behaviors>-->
+            </Controls:SplitButton>
+            <Button Grid.Column="2"
+                    Command="{Binding Path=NextSeasonCmd}"
+                    Margin="0 12 0 12">
+                <iconPacks:PackIconMaterial Kind="ChevronRight" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Button>
+
+            <Button Margin="6 12 0 12"
+                    Grid.Column="3"
+                    Command="{Binding Path=RefreshCmd}">
+                <iconPacks:PackIconMaterial Kind="Refresh" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Button>
+
+            <TextBox Grid.Column="4"
+                     Margin="0 12 6 12"
+                     Width="250"
+                     HorizontalAlignment="Right"
+                     Controls:TextBoxHelper.Watermark="Filter results"/>
+        </Grid>
+
         <ScrollViewer Grid.Row="1">
             <ItemsControl ItemsSource="{Binding Path=SeasonExpanders, UpdateSourceTrigger=PropertyChanged}" >
                 <ItemsControl.ItemTemplate>
