@@ -1,6 +1,6 @@
 [submodule "src/submodules/Library"]
 	path = src/submodules/Library
-	url = https://github.com/dreanor/Library
+	url = https://github.com/Dreanor/Library
 [submodule "src/submodules/Kitsu"]
 	path = src/submodules/Kitsu
 	url = https://github.com/DreanorAnime/Kitsu
