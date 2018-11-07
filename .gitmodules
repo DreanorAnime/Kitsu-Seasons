@@ -1,0 +1,3 @@
+[submodule "src/Kitsu"]
+	path = src/Kitsu
+	url = https://github.com/DreanorAnime/Kitsu
