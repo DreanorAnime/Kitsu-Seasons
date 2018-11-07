@@ -4,6 +4,7 @@ Search through seasons and see which ones aren't on your list
 # Building
 
 Clone the repository including submodules
+
 `git clone --recurse-submodules https://github.com/DreanorAnime/Kitsu-Seasons`
 
 Run `prebuild.ps1` if you want to checkout the latest version of all submodules
