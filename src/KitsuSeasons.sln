@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitsu", "Kitsu\Kitsu.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Design", "Design\Design.csproj", "{5F35F465-C926-4490-86F4-151C8861F65F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "submodules", "submodules", "{77E297A9-8DD8-4C5B-A55E-E2DC07044D2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelViewViewModel", "Library\mvvm\ModelViewViewModel.csproj", "{A164B64E-E4D4-4858-8CFF-B90C22F22FDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +31,17 @@ Global
 		{5F35F465-C926-4490-86F4-151C8861F65F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F35F465-C926-4490-86F4-151C8861F65F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F35F465-C926-4490-86F4-151C8861F65F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A164B64E-E4D4-4858-8CFF-B90C22F22FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A164B64E-E4D4-4858-8CFF-B90C22F22FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A164B64E-E4D4-4858-8CFF-B90C22F22FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A164B64E-E4D4-4858-8CFF-B90C22F22FDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EDEF2165-8D09-41B0-A515-5341E9509466} = {77E297A9-8DD8-4C5B-A55E-E2DC07044D2D}
+		{A164B64E-E4D4-4858-8CFF-B90C22F22FDB} = {77E297A9-8DD8-4C5B-A55E-E2DC07044D2D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {30742B1A-0CD0-4B31-9D04-077AE4CD9EEA}

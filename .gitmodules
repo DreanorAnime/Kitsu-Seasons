@@ -1,3 +1,6 @@
-[submodule "src/Kitsu"]
-	path = src/Kitsu
+[submodule "src/submodules/Library"]
+	path = src/submodules/Library
+	url = https://github.com/dreanor/Library
+[submodule "src/submodules/Kitsu"]
+	path = src/submodules/Kitsu
 	url = https://github.com/DreanorAnime/Kitsu
