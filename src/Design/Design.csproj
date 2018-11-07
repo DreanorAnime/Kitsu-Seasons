@@ -126,13 +126,13 @@
     <Resource Include="img\kit.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\submodules\Library\mvvm\ModelViewViewModel.csproj">
+    <Resource Include="img\placeholder.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\submodules\Library\src\mvvm\ModelViewViewModel.csproj">
       <Project>{a164b64e-e4d4-4858-8cff-b90c22f22fdb}</Project>
       <Name>ModelViewViewModel</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="img\placeholder.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
