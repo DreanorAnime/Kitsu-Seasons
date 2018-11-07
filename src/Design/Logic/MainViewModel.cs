@@ -2,6 +2,7 @@
 using Design.Interfaces;
 using ModelViewViewModel.Base;
 using ModelViewViewModel.commands;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,11 +17,10 @@ namespace Design.Logic
         public MainViewModel()
         {
             PropertyChanged += OnPropertyChanged;
-
             SeasonExpanders = new ObservableCollection<ISeasonExpander>
             {
                 new SeasonExpander(new ObservableCollection<ISeason>{
-                    new Season("Meh", 0, @"", SeasonType.TV, AiringStatus.unreleased, 24.6, "test2", AgeRating.R18),
+                    new Season("Meh", 0, "", SeasonType.TV, AiringStatus.unreleased, 24.6, "test2", AgeRating.R18),
                     new Season("Moo", 0, "", SeasonType.OVA, AiringStatus.upcoming, 4.6, "test2", AgeRating.G)
                 }, "Headertext"),
             };
