@@ -4,6 +4,7 @@ using Design.Logic;
 using ModelViewViewModel.Base;
 using ModelViewViewModel.commands;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Design.Models
@@ -21,10 +22,14 @@ namespace Design.Models
         public MainViewModel(IController controller)
         {
             this.controller = controller;
+            var saveData = controller.LoadSaveData();
+            EmailAddress = saveData.EmailAddress;
 
             SeasonList = controller.PopulateSeasonSelection();
 
             AddValidationRule(x => x.EmailAddress, new ValidationRule(() => Validator.EmailAddressIsValid(EmailAddress), "This is not a valid Email"));
+
+            PropertyChanged += OnPropertyChanged;
 
             SeasonExpanders = new ObservableCollection<ISeasonExpander>
             {
@@ -79,6 +84,15 @@ namespace Design.Models
         {
             get { return Get(x => x.EmailAddress); }
             set { Set(x => x.EmailAddress, value); }
+        }
+
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == GetPropertyName(x => x.EmailAddress) && string.IsNullOrWhiteSpace(this[GetPropertyName(x => x.EmailAddress)]))
+            {
+                controller.SaveEmail(EmailAddress);
+            }
         }
     }
 }
