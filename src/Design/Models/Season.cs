@@ -1,7 +1,7 @@
 ﻿using Design.Enums;
 using Design.Interfaces;
 
-namespace Design.Logic
+namespace Design.Models
 {
     public class SeasonEntry : ISeasonEntry
     {

@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace Design.Logic
+namespace Design.Models
 {
     public class MainViewModel : ViewModelBase<IMainViewModel>, IMainViewModel
     {
@@ -21,7 +21,6 @@ namespace Design.Logic
         public MainViewModel(IController controller)
         {
             this.controller = controller;
-            PropertyChanged += OnPropertyChanged;
 
             SeasonList = controller.PopulateSeasonSelection();
 
@@ -73,8 +72,11 @@ namespace Design.Logic
             get { return Get(x => x.SelectedSeason); }
             set { Set(x => x.SelectedSeason, value); }
         }
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+
+        public string EmailAddress
         {
+            get { return Get(x => x.EmailAddress); }
+            set { Set(x => x.EmailAddress, value); }
         }
     }
 }

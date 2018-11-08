@@ -2,7 +2,7 @@
 using Kitsu;
 using System.Globalization;
 
-namespace Design.Logic
+namespace Design.Models
 {
     public class SelectSeason : ISelectSeason
     {

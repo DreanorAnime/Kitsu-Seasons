@@ -3,9 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:local="clr-namespace:Design"
-                      xmlns:Behaviors="clr-namespace:Design.Behaviors"
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                       Title="Kitsu Seasons"
                       Height="600"
                       ShowIconOnTitleBar="True"
@@ -43,9 +41,11 @@
                             <ScaleTransform ScaleY="3" />
                         </Separator.RenderTransform>
                     </Separator>
-                    <TextBox Controls:TextBoxHelper.Watermark="Email address"  
+                    <TextBox Controls:TextBoxHelper.Watermark="Email address" 
+                             Text="{Binding Path=EmailAddress, UpdateSourceTrigger=PropertyChanged}"
                              Margin="6"/>
                     <PasswordBox Controls:TextBoxHelper.Watermark="Password"   
+                                 x:Name="Passwordbox"
                                  Margin="6"/>
                     <TextBlock Margin="6">           
                         <Hyperlink Command="{Binding Path=CreateAccountCmd}">
@@ -62,8 +62,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0"
-              Background="Black">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
@@ -71,23 +70,20 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
             <Button Margin="6 12 0 12"
                     Command="{Binding Path=PreviousSeasonCmd}">
                <iconPacks:PackIconMaterial Kind="ChevronLeft" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Button>
-            <Controls:SplitButton HorizontalContentAlignment="Left"
-                                  Grid.Column="1"
-                                  Margin="0 11 0 11"
-                                  SelectedIndex="2"
-                                  ItemsSource="{Binding Path=SeasonList, UpdateSourceTrigger=PropertyChanged}"
-                                  IsSynchronizedWithCurrentItem="True"
-                                  SelectedItem="{Binding Path=SelectedSeason, UpdateSourceTrigger=PropertyChanged}"
-                                  Width="250">
-                <!--<i:Interaction.Behaviors>
-                    <Behaviors:ScrollIntoViewBehavior/>
-                </i:Interaction.Behaviors>-->
-            </Controls:SplitButton>
+            
+            <ComboBox Grid.Column="1"
+                      Margin="0 12 0 12"
+                      BorderThickness="0"
+                      IsSynchronizedWithCurrentItem="True"
+                      SelectedItem="{Binding Path=SelectedSeason, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path=SeasonList, UpdateSourceTrigger=PropertyChanged}"
+                      Width="120">
+            </ComboBox>
             <Button Grid.Column="2"
                     Command="{Binding Path=NextSeasonCmd}"
                     Margin="0 12 0 12">
@@ -102,6 +98,7 @@
 
             <TextBox Grid.Column="4"
                      Margin="0 12 6 12"
+                     BorderThickness="0"
                      Width="250"
                      HorizontalAlignment="Right"
                      Controls:TextBoxHelper.Watermark="Filter results"/>

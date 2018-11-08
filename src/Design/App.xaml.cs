@@ -1,5 +1,6 @@
 ﻿using Design.Interfaces;
 using Design.Logic;
+using Design.Models;
 using System.Windows;
 
 namespace Design

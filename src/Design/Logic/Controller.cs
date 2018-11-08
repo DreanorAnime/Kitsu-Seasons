@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Design.Interfaces;
+using Design.Models;
 
 namespace Design.Logic
 {
@@ -17,7 +18,7 @@ namespace Design.Logic
             else
             {
                 int index = seasonList.IndexOf(selectedSeason);
-                selectedSeason = index > 0 ? seasonList[--index] : seasonList.First();
+                selectedSeason = index < seasonList.Count - 1 ? seasonList[++index] : seasonList.Last();
             }
 
             return selectedSeason;
@@ -32,7 +33,7 @@ namespace Design.Logic
             else
             {
                 int index = seasonList.IndexOf(selectedSeason);
-                selectedSeason = index < seasonList.Count -1 ? seasonList[++index] : seasonList.Last();
+                selectedSeason = index > 0 ? seasonList[--index] : seasonList.First();
             }
 
             return selectedSeason;

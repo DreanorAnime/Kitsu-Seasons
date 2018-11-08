@@ -44,14 +44,8 @@
     <Reference Include="MahApps.Metro.IconPacks, Version=2.3.0.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.2.3.0\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expression.Blend.Sdk.WPF.1.0.1\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expression.Blend.Sdk.WPF.1.0.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -70,7 +64,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behaviors\ScrollIntoViewBehavior.cs" />
     <Compile Include="Enums\AgeRating.cs" />
     <Compile Include="Enums\AiringStatus.cs" />
     <Compile Include="Enums\SeasonType.cs" />
@@ -78,8 +71,8 @@
     <Compile Include="Interfaces\ISeasonExpander.cs" />
     <Compile Include="Interfaces\ISelectSeason.cs" />
     <Compile Include="Logic\Controller.cs" />
-    <Compile Include="Logic\SeasonExpander.cs" />
-    <Compile Include="Logic\SelectSeason.cs" />
+    <Compile Include="Models\SeasonExpander.cs" />
+    <Compile Include="Models\SelectSeason.cs" />
     <Compile Include="UserControls\SeasonExpander.xaml.cs">
       <DependentUpon>SeasonExpander.xaml</DependentUpon>
     </Compile>
@@ -101,8 +94,8 @@
     <Compile Include="Interfaces\IMainViewModel.cs" />
     <Compile Include="Interfaces\IMainView.cs" />
     <Compile Include="Interfaces\ISeason.cs" />
-    <Compile Include="Logic\MainViewModel.cs" />
-    <Compile Include="Logic\Season.cs" />
+    <Compile Include="Models\MainViewModel.cs" />
+    <Compile Include="Models\Season.cs" />
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -130,7 +123,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

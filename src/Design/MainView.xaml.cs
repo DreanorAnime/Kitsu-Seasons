@@ -12,6 +12,14 @@ namespace Design
         {
             InitializeComponent();
             DataContext = viewModel;
+            Passwordbox.LostFocus += Passwordbox_LostFocus;
+        }
+
+        private void Passwordbox_LostFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            //Has to be this way, since we don't want to bind the password thus exposing it
+            var a = Passwordbox;
+            //encrypt password with AES and save to file
         }
     }
 }

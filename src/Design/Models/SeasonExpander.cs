@@ -1,7 +1,7 @@
 ﻿using Design.Interfaces;
 using System.Collections.ObjectModel;
 
-namespace Design.Logic
+namespace Design.Models
 {
     public class SeasonExpander : ISeasonExpander
     {

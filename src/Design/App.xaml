@@ -6,12 +6,19 @@
         <ResourceDictionary>
             <Color x:Key="LightPurple">#402F3F</Color>
             <Color x:Key="DarkPurple">#332532</Color>
-
+            <Color x:Key="ControlBlack">#2F2F2F</Color>
+            
             <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource LightPurple}"  />
             <SolidColorBrush x:Key="MainWindowBorderBrush" Color="{StaticResource LightPurple}"  />
             <SolidColorBrush x:Key="DarkPurpleBrush" Color="{StaticResource DarkPurple}"  />
             <SolidColorBrush x:Key="LightPurpleBrush" Color="{StaticResource LightPurple}"  />
 
+
+            <SolidColorBrush x:Key="FlatButtonBackgroundBrush" Color="{StaticResource ControlBlack}"  />
+            <SolidColorBrush x:Key="FlatButtonForegroundBrush" Color="White"  />
+            <SolidColorBrush x:Key="FlatButtonPressedBackgroundBrush" Color="#171717"  />
+            <SolidColorBrush x:Key="FlatButtonPressedForegroundBrush" Color="White" />
+            
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
@@ -19,8 +26,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Red.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

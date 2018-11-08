@@ -23,5 +23,7 @@ namespace Design.Interfaces
         ActionCommand RefreshCmd{ get; }
 
         bool OptionsAreVisible { get; set; }
+
+        string EmailAddress { get; set; }
     }
 }
