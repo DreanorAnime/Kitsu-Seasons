@@ -1,9 +1,9 @@
 ﻿using Design.Enums;
 using Design.Interfaces;
+using Design.Logic;
 using ModelViewViewModel.Base;
 using ModelViewViewModel.commands;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Design.Models
@@ -23,6 +23,8 @@ namespace Design.Models
             this.controller = controller;
 
             SeasonList = controller.PopulateSeasonSelection();
+
+            AddValidationRule(x => x.EmailAddress, new ValidationRule(() => Validator.EmailAddressIsValid(EmailAddress), "This is not a valid Email"));
 
             SeasonExpanders = new ObservableCollection<ISeasonExpander>
             {

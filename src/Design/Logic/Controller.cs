@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Design.Interfaces;
+using Design.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Design.Interfaces;
-using Design.Models;
 
 namespace Design.Logic
 {
@@ -38,7 +38,6 @@ namespace Design.Logic
 
             return selectedSeason;
         }
-
 
         public ObservableCollection<ISelectSeason> PopulateSeasonSelection()
         {

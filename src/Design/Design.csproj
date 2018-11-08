@@ -71,6 +71,7 @@
     <Compile Include="Interfaces\ISeasonExpander.cs" />
     <Compile Include="Interfaces\ISelectSeason.cs" />
     <Compile Include="Logic\Controller.cs" />
+    <Compile Include="Logic\Validator.cs" />
     <Compile Include="Models\SeasonExpander.cs" />
     <Compile Include="Models\SelectSeason.cs" />
     <Compile Include="UserControls\SeasonExpander.xaml.cs">

@@ -42,7 +42,7 @@
                         </Separator.RenderTransform>
                     </Separator>
                     <TextBox Controls:TextBoxHelper.Watermark="Email address" 
-                             Text="{Binding Path=EmailAddress, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Path=EmailAddress, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"
                              Margin="6"/>
                     <PasswordBox Controls:TextBoxHelper.Watermark="Password"   
                                  x:Name="Passwordbox"
