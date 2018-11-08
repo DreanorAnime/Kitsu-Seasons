@@ -11,25 +11,10 @@ namespace Design.Logic
 {
     public class Controller : IController
     {
-        private const string FolderName = "KitsuSeasons";
-        private const string FileName = "SaveData.json";
-
         public Controller()
         {
-            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var mergedFolder = Path.Combine(appData, FolderName);
-            if (!Directory.Exists(mergedFolder))
-            {
-                Directory.CreateDirectory(mergedFolder);
-            }
-
-            AppFolder = mergedFolder;
-            SaveFilePath = Path.Combine(AppFolder, FileName);
+            DataStructure.SetupFolders();
         }
-
-        private string AppFolder { get; }
-
-        private string SaveFilePath { get; }
 
         public ISelectSeason GetPreviousSeason(ISelectSeason selectedSeason, ObservableCollection<ISelectSeason> seasonList)
         {
@@ -78,40 +63,12 @@ namespace Design.Logic
 
         public void SaveEmail(string emailAddress)
         {
-            string serializedSaveData = string.Empty;
-
-            if (File.Exists(SaveFilePath))
-            {
-                var json = File.ReadAllText(SaveFilePath);
-
-                var saveData = JsonConvert.DeserializeObject<SaveData>(json);
-
-                if (saveData.EmailAddress != emailAddress)
-                {
-                    saveData.EmailAddress = emailAddress;
-                    serializedSaveData = JsonConvert.SerializeObject(saveData, Formatting.Indented);
-                }
-            }
-            else
-            {
-                serializedSaveData = JsonConvert.SerializeObject(new SaveData(emailAddress, string.Empty), Formatting.Indented);
-            }
-
-            if (!string.IsNullOrWhiteSpace(serializedSaveData))
-            {
-                File.WriteAllText(SaveFilePath, serializedSaveData);
-            }
+            DataStructure.Save(new SaveData(emailAddress, string.Empty));
         }
 
         public SaveData LoadSaveData()
         {
-            if (File.Exists(SaveFilePath))
-            {
-                var json = File.ReadAllText(SaveFilePath);
-                return JsonConvert.DeserializeObject<SaveData>(json);
-            }
-
-            return new SaveData();
+            return DataStructure.Load();
         }
     }
 }

@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -73,7 +74,9 @@
     <Compile Include="Interfaces\IController.cs" />
     <Compile Include="Interfaces\ISeasonExpander.cs" />
     <Compile Include="Interfaces\ISelectSeason.cs" />
+    <Compile Include="Logic\AES.cs" />
     <Compile Include="Logic\Controller.cs" />
+    <Compile Include="Logic\DataStructure.cs" />
     <Compile Include="Logic\Validator.cs" />
     <Compile Include="Models\SaveData.cs" />
     <Compile Include="Models\SeasonExpander.cs" />
@@ -128,7 +131,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
