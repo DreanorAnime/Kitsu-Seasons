@@ -121,6 +121,8 @@ namespace KitsuSeasons.Logic
                 string name = (string)item.attributes.canonicalTitle;
                 var anime = await Library.GetAnime(userId, id);
 
+                var animeDetails = await Anime.GetAnime(id);
+
                 if (anime.data.Count > 0)
                 {
                     var status = anime.data[0].attributes.status;
@@ -131,14 +133,16 @@ namespace KitsuSeasons.Logic
                     seasonalAnime = new SeasonalAnime(id, name, (string)item.attributes.status, false);
                 }
 
-                await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => AddSeasonalAnimeToList(seasonExpanders, seasonalAnime)));
+                await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => AddSeasonalAnimeToList(seasonExpanders, seasonalAnime, animeDetails)));
             }
 
             return season;
         }
 
-        private void AddSeasonalAnimeToList(ObservableCollection<ISeasonExpander> seasonExpanders, SeasonalAnime anime)
+        private void AddSeasonalAnimeToList(ObservableCollection<ISeasonExpander> seasonExpanders, SeasonalAnime anime, dynamic animeDetails)
         {
+            string smallImage = animeDetails.data[0].attributes.posterImage.small;
+
             var placeholder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "placeholder.jpg");
 
             if (!anime.IsInList)
