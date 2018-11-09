@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 
 namespace Design.Models
 {
-    public class SeasonExpander : ISeasonExpander
+    public class SeasonExpanderModel : ISeasonExpander
     {
-        public SeasonExpander(ObservableCollection<ISeasonEntry> seasonList, string header)
+        public SeasonExpanderModel(ObservableCollection<ISeasonEntry> seasonList, string header)
         {
             SeasonEntries = seasonList;
             Header = header;

@@ -8,7 +8,8 @@ namespace Design.Interfaces
         ObservableCollection<ISelectSeason> PopulateSeasonSelection();
         ISelectSeason GetPreviousSeason(ISelectSeason selectedSeason, ObservableCollection<ISelectSeason> seasonList);
         ISelectSeason GetNextSeason(ISelectSeason selectedSeason, ObservableCollection<ISelectSeason> seasonList);
-        void SaveEmail(string emailAddress);
+        void SaveUsername(string emailAddress);
         SaveData LoadSaveData();
+        void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders);
     }
 }

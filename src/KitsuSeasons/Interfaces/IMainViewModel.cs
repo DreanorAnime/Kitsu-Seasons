@@ -24,6 +24,6 @@ namespace Design.Interfaces
 
         bool OptionsAreVisible { get; set; }
 
-        string EmailAddress { get; set; }
+        string Username { get; set; }
     }
 }

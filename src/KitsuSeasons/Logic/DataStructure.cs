@@ -31,9 +31,9 @@ namespace Design.Logic
 
                 var deserializedData = JsonConvert.DeserializeObject<SaveData>(json);
 
-                if (string.IsNullOrWhiteSpace(saveData.EmailAddress))
+                if (string.IsNullOrWhiteSpace(saveData.Username))
                 {
-                    saveData.EmailAddress = deserializedData.EmailAddress;
+                    saveData.Username = deserializedData.Username;
                 }
 
                 if (string.IsNullOrWhiteSpace(saveData.Password))

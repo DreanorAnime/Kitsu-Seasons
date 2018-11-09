@@ -6,13 +6,13 @@
         {
         }
 
-        public SaveData(string emailAddress, string password)
+        public SaveData(string username, string password)
         {
-            EmailAddress = emailAddress;
+            Username = username;
             Password = password;
         }
 
-        public string EmailAddress { get; set; }
+        public string Username { get; set; }
 
         public string Password{ get; set; }
     }
