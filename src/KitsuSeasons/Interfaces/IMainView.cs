@@ -1,4 +1,4 @@
-﻿namespace Design.Interfaces
+﻿namespace KitsuSeasons.Interfaces
 {
     public interface IMainView
     {

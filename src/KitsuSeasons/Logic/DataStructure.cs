@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
-using Design.Models;
+using KitsuSeasons.Models;
 using Newtonsoft.Json;
 
-namespace Design.Logic
+namespace KitsuSeasons.Logic
 {
     public static class DataStructure
     {

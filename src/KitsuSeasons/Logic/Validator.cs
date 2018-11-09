@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
 
-namespace Design.Logic
+namespace KitsuSeasons.Logic
 {
     public static class Validator
     {

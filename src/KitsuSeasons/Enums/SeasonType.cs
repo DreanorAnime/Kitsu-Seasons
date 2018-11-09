@@ -1,4 +1,4 @@
-﻿namespace Design.Enums
+﻿namespace KitsuSeasons.Enums
 {
     public enum SeasonType
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Design.Interfaces
+namespace KitsuSeasons.Interfaces
 {
     public interface ISeasonExpander
     {

@@ -1,10 +1,10 @@
-﻿using Design.Interfaces;
-using Design.Logic;
-using Design.Models;
+﻿using KitsuSeasons.Interfaces;
+using KitsuSeasons.Logic;
+using KitsuSeasons.Models;
 using MahApps.Metro.Controls;
 using System.IO;
 
-namespace Design
+namespace KitsuSeasons
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

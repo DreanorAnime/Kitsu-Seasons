@@ -1,6 +1,6 @@
-﻿using Design.Enums;
+﻿using KitsuSeasons.Enums;
 
-namespace Design.Interfaces
+namespace KitsuSeasons.Interfaces
 {
     public interface ISeasonEntry
     {

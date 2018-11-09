@@ -1,8 +1,8 @@
-﻿using Design.Interfaces;
+﻿using KitsuSeasons.Interfaces;
 using Kitsu;
 using System.Globalization;
 
-namespace Design.Models
+namespace KitsuSeasons.Models
 {
     public class SelectSeason : ISelectSeason
     {

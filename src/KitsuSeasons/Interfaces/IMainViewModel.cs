@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace Design.Interfaces
+namespace KitsuSeasons.Interfaces
 {
     public interface IMainViewModel : INotifyPropertyChanged
     {

@@ -1,7 +1,7 @@
-﻿using Design.Models;
+﻿using KitsuSeasons.Models;
 using System.Collections.ObjectModel;
 
-namespace Design.Interfaces
+namespace KitsuSeasons.Interfaces
 {
     public interface IController
     {
@@ -10,6 +10,6 @@ namespace Design.Interfaces
         ISelectSeason GetNextSeason(ISelectSeason selectedSeason, ObservableCollection<ISelectSeason> seasonList);
         void SaveUsername(string emailAddress);
         SaveData LoadSaveData();
-        void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders);
+        void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason);
     }
 }

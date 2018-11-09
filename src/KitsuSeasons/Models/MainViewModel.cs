@@ -1,6 +1,6 @@
-﻿using Design.Enums;
-using Design.Interfaces;
-using Design.Logic;
+﻿using KitsuSeasons.Enums;
+using KitsuSeasons.Interfaces;
+using KitsuSeasons.Logic;
 using ModelViewViewModel.Base;
 using ModelViewViewModel.commands;
 using System.Collections.ObjectModel;
@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 
-namespace Design.Models
+namespace KitsuSeasons.Models
 {
     public class MainViewModel : ViewModelBase<IMainViewModel>, IMainViewModel
     {
@@ -18,7 +18,7 @@ namespace Design.Models
         public ActionCommand CreateAccountCmd => new ActionCommand(() => Process.Start("https://kitsu.io/"));
         public ActionCommand PreviousSeasonCmd => new ActionCommand(() => SelectedSeason = controller.GetPreviousSeason(SelectedSeason, SeasonList));
         public ActionCommand NextSeasonCmd => new ActionCommand(() => SelectedSeason = controller.GetNextSeason(SelectedSeason, SeasonList));
-        public ActionCommand RefreshCmd => new ActionCommand(() => controller.LoadSeasons(SeasonExpanders));
+        public ActionCommand RefreshCmd => new ActionCommand(() => controller.LoadSeasons(SeasonExpanders, SelectedSeason));
 
         public MainViewModel(IController controller)
         {

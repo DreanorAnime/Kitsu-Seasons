@@ -1,7 +1,7 @@
-﻿using Design.Interfaces;
+﻿using KitsuSeasons.Interfaces;
 using System.Collections.ObjectModel;
 
-namespace Design.Models
+namespace KitsuSeasons.Models
 {
     public class SeasonExpanderModel : ISeasonExpander
     {

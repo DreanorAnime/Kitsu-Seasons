@@ -1,4 +1,4 @@
-﻿namespace Design.Models
+﻿namespace KitsuSeasons.Models
 {
     public class SaveData
     {

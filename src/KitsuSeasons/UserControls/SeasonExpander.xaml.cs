@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Design
+namespace KitsuSeasons
 {
     /// <summary>
     /// Interaction logic for SeasonExpander.xaml

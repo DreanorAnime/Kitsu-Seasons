@@ -1,9 +1,9 @@
-﻿using Design.Interfaces;
-using Design.Logic;
-using Design.Models;
+﻿using KitsuSeasons.Interfaces;
+using KitsuSeasons.Logic;
+using KitsuSeasons.Models;
 using System.Windows;
 
-namespace Design
+namespace KitsuSeasons
 {
     /// <summary>
     /// Interaction logic for App.xaml

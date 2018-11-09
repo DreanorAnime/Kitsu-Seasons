@@ -1,19 +1,18 @@
-﻿using Design.Enums;
-using Design.Interfaces;
-using Design.Models;
-using Kitsu;
+﻿using Kitsu;
 using Kitsu.Api;
+using KitsuSeasons.Enums;
+using KitsuSeasons.Interfaces;
+using KitsuSeasons.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace Design.Logic
+namespace KitsuSeasons.Logic
 {
     public class Controller : IController
     {
@@ -77,13 +76,13 @@ namespace Design.Logic
             return DataStructure.Load();
         }
 
-        public async void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders)
+        public async void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason)
         {
             var data = DataStructure.Load();
             var auth = await Authentication.Authenticate(data.Username, new AES().Decrypt(data.Password));
             var user = await User.GetUserAsync(data.Username);
 
-            LoadEntireSeason(seasonExpanders, Season.fall, 2018, (int)user.data[0].id);
+            LoadEntireSeason(seasonExpanders, selectedSeason.SeasonDisplay, selectedSeason.Year, (int)user.data[0].id);
         }
 
         private async void LoadEntireSeason(ObservableCollection<ISeasonExpander> seasonExpanders, Season season, int year, int userId)
