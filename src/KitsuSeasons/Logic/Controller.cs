@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -141,37 +142,47 @@ namespace KitsuSeasons.Logic
 
         private void AddSeasonalAnimeToList(ObservableCollection<ISeasonExpander> seasonExpanders, SeasonalAnime anime, dynamic animeDetails)
         {
-            string smallImage = animeDetails.data[0].attributes.posterImage.small;
+            string smallImage = (string)animeDetails.data.attributes.posterImage.small;
 
-            var placeholder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "placeholder.jpg");
+            var imageLocation = DownloadImage(smallImage, anime.Id);
 
-            if (!anime.IsInList)
-            {
-                seasonExpanders[0].SeasonEntries.Add(new SeasonEntry(anime.Name, 1, placeholder, SeasonType.movie, AiringStatus.current, 1, "", AgeRating.G));
-            }
-            else
+            int index = 0;
+            if (anime.IsInList)
             {
                 switch (anime.StatusInlist)
                 {
                     case Status.current:
-                        seasonExpanders[1].SeasonEntries.Add(new SeasonEntry(anime.Name, 1, placeholder, SeasonType.movie, AiringStatus.current, 1, "", AgeRating.G));
+                        index = 1;
                         break;
                     case Status.completed:
-                        seasonExpanders[2].SeasonEntries.Add(new SeasonEntry(anime.Name, 1, placeholder, SeasonType.movie, AiringStatus.current, 1, "", AgeRating.G));
+                        index = 2;
                         break;
                     case Status.on_hold:
-                        seasonExpanders[3].SeasonEntries.Add(new SeasonEntry(anime.Name, 1, placeholder, SeasonType.movie, AiringStatus.current, 1, "", AgeRating.G));
+                        index = 3;
                         break;
                     case Status.dropped:
-                        seasonExpanders[4].SeasonEntries.Add(new SeasonEntry(anime.Name, 1, placeholder, SeasonType.movie, AiringStatus.current, 1, "", AgeRating.G));
+                        index = 4;
                         break;
                     case Status.planned:
-                        seasonExpanders[5].SeasonEntries.Add(new SeasonEntry(anime.Name, 1, placeholder, SeasonType.movie, AiringStatus.current, 1, "", AgeRating.G));
-                        break;
-                    default:
+                        index = 5;
                         break;
                 }
             }
+          
+            var seasonEntry = new SeasonEntry(anime.Name, 1, imageLocation, SeasonType.movie, AiringStatus.current, 1, "", AgeRating.G);
+            seasonExpanders[index].SeasonEntries.Add(seasonEntry);
+        }
+
+        private string DownloadImage(string url, int animeId)
+        {
+            string location = Path.Combine(DataStructure.ImageFolder, $"{animeId}.jpg");
+
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(new Uri(url), location);
+            }
+
+            return location;
         }
     }
 }

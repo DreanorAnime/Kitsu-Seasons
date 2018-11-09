@@ -7,19 +7,27 @@ namespace KitsuSeasons.Logic
 {
     public static class DataStructure
     {
-        private const string FolderName = "KitsuSeasons";
+        private const string HomeFolderName = "KitsuSeasons";
+        private const string ImageFolderName = "Images";
         private const string FileName = "SaveData.json";
-        private static string SaveFilePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), FolderName, FileName);
+        private static string SaveFilePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), HomeFolderName, FileName);
 
         public static void SetupFolders()
         {
-            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var mergedFolder = Path.Combine(appData, FolderName);
-            if (!Directory.Exists(mergedFolder))
+            if (!Directory.Exists(HomeFolder))
             {
-                Directory.CreateDirectory(mergedFolder);
+                Directory.CreateDirectory(HomeFolder);
+            }
+
+            if (!Directory.Exists(HomeFolder))
+            {
+                Directory.CreateDirectory(HomeFolder);
             }
         }
+
+        public static string HomeFolder { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), HomeFolderName); } }
+
+        public static string ImageFolder { get { return Path.Combine(HomeFolder, ImageFolderName); } }
 
         public static void Save(SaveData saveData)
         {
