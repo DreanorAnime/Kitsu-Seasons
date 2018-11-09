@@ -10,14 +10,14 @@ namespace KitsuSeasons.Interfaces
 
         string EpisodeText { get; }
 
-        SeasonType Type { get; } 
+        string Type { get; } 
 
-        AiringStatus Status { get; }
+        string Status { get; }
 
         string ScoreText { get; }
 
         string AiredText { get; } 
 
-        AgeRating Rating { get; }
+        string Rating { get; }
     }
 }

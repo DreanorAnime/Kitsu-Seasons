@@ -88,9 +88,20 @@ namespace KitsuSeasons.Logic
 
         private async void LoadEntireSeason(ObservableCollection<ISeasonExpander> seasonExpanders, Season season, int year, int userId)
         {
-            var result = await Anime.GetSeason(season, year);
-            await GetSeasonData(seasonExpanders, userId, result);
-            await LoopSeasons(seasonExpanders, (string)result.links.next, userId);
+            try
+            {
+                for (int i = 0; i < seasonExpanders.Count(); i++)
+                {
+                    seasonExpanders[i].SeasonEntries.Clear();
+                }
+
+                var result = await Anime.GetSeason(season, year);
+                await GetSeasonData(seasonExpanders, userId, result);
+                await LoopSeasons(seasonExpanders, (string)result.links.next, userId);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private async Task<List<SeasonalAnime>> LoopSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, string next, int userId)
@@ -134,7 +145,7 @@ namespace KitsuSeasons.Logic
                     seasonalAnime = new SeasonalAnime(id, name, (string)item.attributes.status, false);
                 }
 
-                await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => AddSeasonalAnimeToList(seasonExpanders, seasonalAnime, animeDetails)));
+                await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => AddSeasonalAnimeToList(seasonExpanders, seasonalAnime, animeDetails.data)));
             }
 
             return season;
@@ -142,9 +153,9 @@ namespace KitsuSeasons.Logic
 
         private void AddSeasonalAnimeToList(ObservableCollection<ISeasonExpander> seasonExpanders, SeasonalAnime anime, dynamic animeDetails)
         {
-            string smallImage = (string)animeDetails.data.attributes.posterImage.small;
+            string smallImage = (string)animeDetails.attributes.posterImage.small;
 
-            var imageLocation = DownloadImage(smallImage, anime.Id);
+            var imageLocation = LoadImage(smallImage, anime.Id);
 
             int index = 0;
             if (anime.IsInList)
@@ -168,14 +179,28 @@ namespace KitsuSeasons.Logic
                         break;
                 }
             }
-          
-            var seasonEntry = new SeasonEntry(anime.Name, 1, imageLocation, SeasonType.movie, AiringStatus.current, 1, "", AgeRating.G);
+
+
+            var seasonEntry = new SeasonEntry(anime.Name,
+                (string)animeDetails.attributes.episodeCount, 
+                imageLocation, 
+                (string)animeDetails.attributes.subtype, 
+                (string)animeDetails.attributes.status,
+                (string)animeDetails.attributes.averageRating,
+                (string)animeDetails.attributes.startDate, 
+                (string)animeDetails.attributes.endDate,
+                (string)animeDetails.attributes.ageRating);
+
             seasonExpanders[index].SeasonEntries.Add(seasonEntry);
         }
 
-        private string DownloadImage(string url, int animeId)
+        private string LoadImage(string url, int animeId)
         {
             string location = Path.Combine(DataStructure.ImageFolder, $"{animeId}.jpg");
+            if (File.Exists(location))
+            {
+                return location;
+            }
 
             using (WebClient client = new WebClient())
             {

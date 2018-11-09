@@ -2,6 +2,7 @@
 {
     public enum AgeRating
     {
+        none,
         G,
         PG,
         R,
