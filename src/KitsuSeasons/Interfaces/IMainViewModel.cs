@@ -26,14 +26,6 @@ namespace KitsuSeasons.Interfaces
 
         string Username { get; set; }
 
-        int ProgressValue { get; }
-
-        int ProgressMaximum { get; }
-
-        string ProgressText { get; }
-
-        bool ProgressIsVisible { get; }
-
-        bool ProgressIsIndeterminate { get; }
+        IProgressModel ProgressModel { get; }
     }
 }

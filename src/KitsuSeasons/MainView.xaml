@@ -103,19 +103,19 @@
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Collapsed"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=ProgressIsVisible, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                            <DataTrigger Binding="{Binding Path=ProgressModel.ProgressIsVisible, UpdateSourceTrigger=PropertyChanged}" Value="True">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
 
-                <Controls:MetroProgressBar Value="{Binding Path=ProgressValue, UpdateSourceTrigger=PropertyChanged}"
-                                           Maximum="{Binding Path=ProgressMaximum, UpdateSourceTrigger=PropertyChanged}"
-                                           IsIndeterminate="{Binding Path=ProgressIsIndeterminate, UpdateSourceTrigger=PropertyChanged}"
+                <Controls:MetroProgressBar Value="{Binding Path=ProgressModel.ProgressValue, UpdateSourceTrigger=PropertyChanged}"
+                                           Maximum="{Binding Path=ProgressModel.ProgressMaximum, UpdateSourceTrigger=PropertyChanged}"
+                                           IsIndeterminate="{Binding Path=ProgressModel.ProgressIsIndeterminate, UpdateSourceTrigger=PropertyChanged}"
                                            Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}"/>
 
-                <TextBlock Text="{Binding Path=ProgressText, UpdateSourceTrigger=PropertyChanged}"
+                <TextBlock Text="{Binding Path=ProgressModel.ProgressText, UpdateSourceTrigger=PropertyChanged}"
                            Foreground="White"
                            FontSize="12"
                            FontWeight="Bold"

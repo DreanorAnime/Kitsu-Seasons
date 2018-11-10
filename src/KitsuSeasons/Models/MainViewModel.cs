@@ -18,15 +18,13 @@ namespace KitsuSeasons.Models
         public ActionCommand NextSeasonCmd => new ActionCommand(() => SelectedSeason = controller.GetNextSeason(SelectedSeason, SeasonList));
         public ActionCommand RefreshCmd => new ActionCommand(() => 
         {
-            ProgressIsIndeterminate = true;
-            ProgressIsVisible = true;
-            ProgressMaximum = 100;
-            ProgressValue = 0;
-            controller.LoadSeasons(SeasonExpanders, SelectedSeason, SetMaxProgress);
+            ProgressModel.ResetValues();
+            controller.LoadSeasons(SeasonExpanders, SelectedSeason, x => ProgressModel.ProgressMaximum = x);
         });
 
         public MainViewModel(IController controller)
         {
+            ProgressModel = new ProgressModel();
             this.controller = controller;
             var saveData = controller.LoadSaveData();
             Username = saveData.Username;
@@ -41,9 +39,7 @@ namespace KitsuSeasons.Models
                 new SeasonExpanderModel(new ObservableCollection<ISeasonEntry>(), "Dropped"),
                 new SeasonExpanderModel(new ObservableCollection<ISeasonEntry>(), "Plan to watch")
             };
-
-            ProgressMaximum = 100;
-
+        
             //AddValidationRule(x => x.Username, new ValidationRule(() => Validator.EmailAddressIsValid(Username), "This is not a valid Email"));
             PropertyChanged += OnPropertyChanged;
 
@@ -53,28 +49,16 @@ namespace KitsuSeasons.Models
             }
         }
 
-        private void SeasonEntries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-            {
-                ProgressIsVisible = true;
-                ProgressIsIndeterminate = false;
-
-                ProgressValue++;
-                double percent = ((double)ProgressValue / (double)ProgressMaximum) * 100;
-                ProgressText = $"{ProgressValue}/{ProgressMaximum} ({Math.Round(percent, 2)}%)";
-
-                if (ProgressValue == ProgressMaximum)
-                {
-                    ProgressIsVisible = false;
-                }
-            }
-        }
-
         public bool OptionsAreVisible
         {
             get { return Get(x => x.OptionsAreVisible); }
             set { Set(x => x.OptionsAreVisible, value); }
+        }
+
+        public IProgressModel ProgressModel
+        {
+            get { return Get(x => x.ProgressModel); }
+            private set { Set(x => x.ProgressModel, value); }
         }
 
         public ObservableCollection<ISeasonExpander> SeasonExpanders
@@ -101,39 +85,27 @@ namespace KitsuSeasons.Models
             set { Set(x => x.Username, value); }
         }
 
-        public int ProgressValue
+        private void SeasonEntries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            get { return Get(x => x.ProgressValue); }
-            set { Set(x => x.ProgressValue, value); }
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                SetProgress();
+            }
         }
 
-        public int ProgressMaximum
+        private void SetProgress()
         {
-            get { return Get(x => x.ProgressMaximum); }
-            set { Set(x => x.ProgressMaximum, value); }
-        }
+            ProgressModel.ProgressIsVisible = true;
+            ProgressModel.ProgressIsIndeterminate = false;
 
-        public string ProgressText
-        {
-            get { return Get(x => x.ProgressText); }
-            set { Set(x => x.ProgressText, value); }
-        }
+            ProgressModel.ProgressValue++;
+            double percent = ((double)ProgressModel.ProgressValue / (double)ProgressModel.ProgressMaximum) * 100;
+            ProgressModel.ProgressText = $"{ProgressModel.ProgressValue}/{ProgressModel.ProgressMaximum} ({Math.Round(percent, 2)}%)";
 
-        public bool ProgressIsVisible
-        {
-            get { return Get(x => x.ProgressIsVisible); }
-            set { Set(x => x.ProgressIsVisible, value); }
-        }
-
-        public bool ProgressIsIndeterminate
-        {
-            get { return Get(x => x.ProgressIsIndeterminate); }
-            set { Set(x => x.ProgressIsIndeterminate, value); }
-        }
-
-        private void SetMaxProgress(int max)
-        {
-            ProgressMaximum = max;
+            if (ProgressModel.ProgressValue == ProgressModel.ProgressMaximum)
+            {
+                ProgressModel.ProgressIsVisible = false;
+            }
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
