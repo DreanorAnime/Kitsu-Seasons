@@ -2,7 +2,7 @@
 Search through seasons and see which ones aren't on your list
 
 # Features
-- Login to https://kitsu.io/
+- Login to https://kitsu.io/ (your Password will be saved with [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard))
 - Look through all current and past seasons
 - See which ones are on your list
 
