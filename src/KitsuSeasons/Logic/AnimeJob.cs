@@ -18,6 +18,9 @@ namespace KitsuSeasons.Logic
     public class AnimeJob
     {
         private CancellationTokenSource cts;
+        private int UserId { get; set; }
+        private Action<int> SetMaxProgress { get; set; }
+        private ObservableCollection<ISeasonExpander> SeasonExpanders { get; set; }
 
         public void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason, Action<int> setMaxProgress)
         {
@@ -27,32 +30,36 @@ namespace KitsuSeasons.Logic
             }
             cts = new CancellationTokenSource();
 
+            SeasonExpanders = seasonExpanders;
+            SetMaxProgress = setMaxProgress;
+
             new Task(async () =>
             {
                 var data = DataStructure.Load();
                 var auth = await Authentication.Authenticate(data.Username, new AES().Decrypt(data.Password));
                 var user = await User.GetUserAsync(data.Username);
+                UserId = (int)user.data[0].id;
 
-                LoadEntireSeason(seasonExpanders, selectedSeason.SeasonDisplay, selectedSeason.Year, (int)user.data[0].id, cts.Token, setMaxProgress);
+                LoadEntireSeason(selectedSeason.SeasonDisplay, selectedSeason.Year, cts.Token);
             }, cts.Token).Start();
         }
 
-        private async void LoadEntireSeason(ObservableCollection<ISeasonExpander> seasonExpanders, Season season, int year, int userId, CancellationToken token, Action<int> setMaxProgress)
+        private async void LoadEntireSeason(Season season, int year, CancellationToken token)
         {
             try
             {
-                ClearList(seasonExpanders);
+                ClearList();
 
                 var result = await Anime.GetSeason(season, year);
 
-                await GetSeasonData(seasonExpanders, userId, result, token);
-                ExecuteWithDispatcher(() => setMaxProgress((int)result.meta.count));
+                await GetSeasonData(result, token);
+                ExecuteWithDispatcher(() => SetMaxProgress((int)result.meta.count));
 
-                await LoopSeasons(seasonExpanders, (string)result.links.next, userId, token);
+                await LoopSeasons((string)result.links.next, token);
 
                 if (token.IsCancellationRequested)
                 {
-                    ClearList(seasonExpanders);
+                    ClearList();
                 }
             }
             catch (Exception ex)
@@ -60,7 +67,7 @@ namespace KitsuSeasons.Logic
             }
         }
    
-        private async Task<List<SeasonalAnime>> LoopSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, string next, int userId, CancellationToken token)
+        private async Task<List<SeasonalAnime>> LoopSeasons(string next, CancellationToken token)
         {
             if (token.IsCancellationRequested)
             {
@@ -69,11 +76,11 @@ namespace KitsuSeasons.Logic
 
             var result = await Anime.GetSeasonNextPage(next);
 
-            List<SeasonalAnime> season = await GetSeasonData(seasonExpanders, userId, result, token);
+            List<SeasonalAnime> season = await GetSeasonData(result, token);
 
             try
             {
-                await LoopSeasons(seasonExpanders, (string)result.links.next, userId, token);
+                await LoopSeasons((string)result.links.next, token);
             }
             catch (Exception)
             {
@@ -82,7 +89,7 @@ namespace KitsuSeasons.Logic
             return season;
         }
 
-        private async Task<List<SeasonalAnime>> GetSeasonData(ObservableCollection<ISeasonExpander> seasonExpanders, int userId, dynamic result, CancellationToken token)
+        private async Task<List<SeasonalAnime>> GetSeasonData(dynamic result, CancellationToken token)
         {
             List<SeasonalAnime> season = new List<SeasonalAnime>();
 
@@ -97,7 +104,7 @@ namespace KitsuSeasons.Logic
 
                 int id = (int)item.id;
                 string name = (string)item.attributes.canonicalTitle;
-                var anime = await Library.GetAnime(userId, id);
+                var anime = await Library.GetAnime(UserId, id);
 
                 var animeDetails = await Anime.GetAnime(id);
 
@@ -111,7 +118,7 @@ namespace KitsuSeasons.Logic
                     seasonalAnime = new SeasonalAnime(id, name, (string)item.attributes.status, false);
                 }
 
-                ExecuteWithDispatcher(() => AddSeasonalAnimeToList(seasonExpanders, seasonalAnime, animeDetails.data));
+                ExecuteWithDispatcher(() => AddSeasonalAnimeToList(seasonalAnime, animeDetails.data));
             }
 
             return season;
@@ -122,7 +129,7 @@ namespace KitsuSeasons.Logic
             await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, action);
         }
 
-        private void AddSeasonalAnimeToList(ObservableCollection<ISeasonExpander> seasonExpanders, SeasonalAnime anime, dynamic animeDetails)
+        private void AddSeasonalAnimeToList(SeasonalAnime anime, dynamic animeDetails)
         {
             string smallImage = (string)animeDetails.attributes.posterImage.small;
 
@@ -140,23 +147,29 @@ namespace KitsuSeasons.Logic
                 (string)animeDetails.attributes.endDate,
                 (string)animeDetails.attributes.ageRating,
                 index == 0 ? 150 : 0,
+                anime.Id,
                 () => AddAnimeToList(anime.Id));
 
-            seasonExpanders[index].SeasonEntries.Add(seasonEntry);
+            SeasonExpanders[index].SeasonEntries.Add(seasonEntry);
         }
 
-        private void AddAnimeToList(int id)
+        private async void AddAnimeToList(int animeId)
         {
+            var result = await Library.AddAnime(UserId, animeId, Status.planned);
 
+            var a = SeasonExpanders[0].SeasonEntries.FirstOrDefault(x => x.AnimeId == animeId);
+            a.AddButtonSize = 0;
+            SeasonExpanders[0].SeasonEntries.Remove(a);
+            SeasonExpanders[5].SeasonEntries.Add(a);
         }
 
-        private void ClearList(ObservableCollection<ISeasonExpander> seasonExpanders)
+        private void ClearList()
         {
             ExecuteWithDispatcher(() => 
             {
-                for (int i = 0; i < seasonExpanders.Count(); i++)
+                for (int i = 0; i < SeasonExpanders.Count(); i++)
                 {
-                    seasonExpanders[i].SeasonEntries.Clear();
+                    SeasonExpanders[i].SeasonEntries.Clear();
                 }
             });
         }

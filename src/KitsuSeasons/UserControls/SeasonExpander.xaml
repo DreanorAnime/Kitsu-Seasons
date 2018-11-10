@@ -25,12 +25,12 @@
         <ItemsControl ItemsSource="{Binding Path=SeasonEntries, UpdateSourceTrigger=PropertyChanged}" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel FlowDirection="LeftToRight" Orientation="Horizontal"/>
+                    <WrapPanel FlowDirection="LeftToRight" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:AnimeEntry/>
+                    <local:AnimeEntry />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

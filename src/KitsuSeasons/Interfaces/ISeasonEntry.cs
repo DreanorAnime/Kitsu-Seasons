@@ -20,8 +20,10 @@ namespace KitsuSeasons.Interfaces
 
         string Rating { get; }
 
-        int AddButtonSize { get; }
+        int AddButtonSize { get; set; }
 
         ActionCommand AddAnimeToListCmd { get; }
+
+        int AnimeId { get; }
     }
 }

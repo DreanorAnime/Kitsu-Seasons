@@ -13,5 +13,7 @@ namespace KitsuSeasons.Interfaces
         bool ProgressIsVisible { get; set; }
 
         bool ProgressIsIndeterminate { get; set; }
+
+        void ResetValues();
     }
 }

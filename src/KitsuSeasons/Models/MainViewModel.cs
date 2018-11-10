@@ -87,7 +87,7 @@ namespace KitsuSeasons.Models
 
         private void SeasonEntries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add && ProgressModel.ProgressValue != ProgressModel.ProgressMaximum)
             {
                 SetProgress();
             }

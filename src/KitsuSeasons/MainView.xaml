@@ -135,7 +135,7 @@
             <ItemsControl ItemsSource="{Binding Path=SeasonExpanders, UpdateSourceTrigger=PropertyChanged}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:SeasonExpander />
+                        <local:SeasonExpander/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
