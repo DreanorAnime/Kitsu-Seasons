@@ -1,12 +1,10 @@
-﻿using KitsuSeasons.Enums;
-using KitsuSeasons.Interfaces;
-using KitsuSeasons.Logic;
+﻿using KitsuSeasons.Interfaces;
 using ModelViewViewModel.Base;
 using ModelViewViewModel.commands;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 
 namespace KitsuSeasons.Models
 {
@@ -18,7 +16,14 @@ namespace KitsuSeasons.Models
         public ActionCommand CreateAccountCmd => new ActionCommand(() => Process.Start("https://kitsu.io/"));
         public ActionCommand PreviousSeasonCmd => new ActionCommand(() => SelectedSeason = controller.GetPreviousSeason(SelectedSeason, SeasonList));
         public ActionCommand NextSeasonCmd => new ActionCommand(() => SelectedSeason = controller.GetNextSeason(SelectedSeason, SeasonList));
-        public ActionCommand RefreshCmd => new ActionCommand(() => controller.LoadSeasons(SeasonExpanders, SelectedSeason));
+        public ActionCommand RefreshCmd => new ActionCommand(() => 
+        {
+            ProgressIsIndeterminate = true;
+            ProgressIsVisible = true;
+            ProgressMaximum = 100;
+            ProgressValue = 0;
+            controller.LoadSeasons(SeasonExpanders, SelectedSeason, SetMaxProgress);
+        });
 
         public MainViewModel(IController controller)
         {
@@ -37,8 +42,33 @@ namespace KitsuSeasons.Models
                 new SeasonExpanderModel(new ObservableCollection<ISeasonEntry>(), "Plan to watch")
             };
 
+            ProgressMaximum = 100;
+
             //AddValidationRule(x => x.Username, new ValidationRule(() => Validator.EmailAddressIsValid(Username), "This is not a valid Email"));
             PropertyChanged += OnPropertyChanged;
+
+            foreach (var item in SeasonExpanders)
+            {
+                item.SeasonEntries.CollectionChanged += SeasonEntries_CollectionChanged;
+            }
+        }
+
+        private void SeasonEntries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                ProgressIsVisible = true;
+                ProgressIsIndeterminate = false;
+
+                ProgressValue++;
+                double percent = ((double)ProgressValue / (double)ProgressMaximum) * 100;
+                ProgressText = $"{ProgressValue}/{ProgressMaximum} ({Math.Round(percent, 2)}%)";
+
+                if (ProgressValue == ProgressMaximum)
+                {
+                    ProgressIsVisible = false;
+                }
+            }
         }
 
         public bool OptionsAreVisible
@@ -71,6 +101,40 @@ namespace KitsuSeasons.Models
             set { Set(x => x.Username, value); }
         }
 
+        public int ProgressValue
+        {
+            get { return Get(x => x.ProgressValue); }
+            set { Set(x => x.ProgressValue, value); }
+        }
+
+        public int ProgressMaximum
+        {
+            get { return Get(x => x.ProgressMaximum); }
+            set { Set(x => x.ProgressMaximum, value); }
+        }
+
+        public string ProgressText
+        {
+            get { return Get(x => x.ProgressText); }
+            set { Set(x => x.ProgressText, value); }
+        }
+
+        public bool ProgressIsVisible
+        {
+            get { return Get(x => x.ProgressIsVisible); }
+            set { Set(x => x.ProgressIsVisible, value); }
+        }
+
+        public bool ProgressIsIndeterminate
+        {
+            get { return Get(x => x.ProgressIsIndeterminate); }
+            set { Set(x => x.ProgressIsIndeterminate, value); }
+        }
+
+        private void SetMaxProgress(int max)
+        {
+            ProgressMaximum = max;
+        }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

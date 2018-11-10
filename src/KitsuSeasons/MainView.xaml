@@ -68,14 +68,15 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Button Margin="6 12 0 12"
                     Command="{Binding Path=PreviousSeasonCmd}">
-               <iconPacks:PackIconMaterial Kind="ChevronLeft" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <iconPacks:PackIconMaterial Kind="ChevronLeft" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Button>
-            
+
             <ComboBox Grid.Column="1"
                       Margin="0 12 0 12"
                       BorderThickness="0"
@@ -96,7 +97,33 @@
                 <iconPacks:PackIconMaterial Kind="Refresh" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Button>
 
-            <TextBox Grid.Column="4"
+            <Grid Grid.Column="4"
+                  Margin="6 12 0 12">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=ProgressIsVisible, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <Controls:MetroProgressBar Value="{Binding Path=ProgressValue, UpdateSourceTrigger=PropertyChanged}"
+                                           Maximum="{Binding Path=ProgressMaximum, UpdateSourceTrigger=PropertyChanged}"
+                                           IsIndeterminate="{Binding Path=ProgressIsIndeterminate, UpdateSourceTrigger=PropertyChanged}"
+                                           Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}"/>
+
+                <TextBlock Text="{Binding Path=ProgressText, UpdateSourceTrigger=PropertyChanged}"
+                           Foreground="White"
+                           FontSize="12"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"/>
+            </Grid>
+          
+            <TextBox Grid.Column="5"
                      Margin="0 12 6 12"
                      BorderThickness="0"
                      Width="250"

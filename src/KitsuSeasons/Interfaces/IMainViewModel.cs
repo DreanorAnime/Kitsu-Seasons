@@ -25,5 +25,15 @@ namespace KitsuSeasons.Interfaces
         bool OptionsAreVisible { get; set; }
 
         string Username { get; set; }
+
+        int ProgressValue { get; }
+
+        int ProgressMaximum { get; }
+
+        string ProgressText { get; }
+
+        bool ProgressIsVisible { get; }
+
+        bool ProgressIsIndeterminate { get; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using KitsuSeasons.Models;
+using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace KitsuSeasons.Interfaces
 {
@@ -10,6 +12,6 @@ namespace KitsuSeasons.Interfaces
         ISelectSeason GetNextSeason(ISelectSeason selectedSeason, ObservableCollection<ISelectSeason> seasonList);
         void SaveUsername(string emailAddress);
         SaveData LoadSaveData();
-        void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason);
+        void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason, Action<int> setMaxProgress);
     }
 }

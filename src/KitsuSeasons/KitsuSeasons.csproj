@@ -88,6 +88,7 @@
     <Compile Include="Interfaces\ISeasonExpander.cs" />
     <Compile Include="Interfaces\ISelectSeason.cs" />
     <Compile Include="Logic\AES.cs" />
+    <Compile Include="Logic\AnimeJob.cs" />
     <Compile Include="Logic\Controller.cs" />
     <Compile Include="Logic\DataStructure.cs" />
     <Compile Include="Logic\Validator.cs" />
