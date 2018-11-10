@@ -1,7 +1,6 @@
 ﻿using KitsuSeasons.Models;
 using System;
 using System.Collections.ObjectModel;
-using System.Threading;
 
 namespace KitsuSeasons.Interfaces
 {

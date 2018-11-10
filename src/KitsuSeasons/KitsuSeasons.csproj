@@ -115,9 +115,9 @@
     </Compile>
     <Compile Include="Interfaces\IMainViewModel.cs" />
     <Compile Include="Interfaces\IMainView.cs" />
-    <Compile Include="Interfaces\ISeason.cs" />
+    <Compile Include="Interfaces\ISeasonEntry.cs" />
     <Compile Include="Models\MainViewModel.cs" />
-    <Compile Include="Models\Season.cs" />
+    <Compile Include="Models\SeasonEntry.cs" />
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -138,9 +138,16 @@ namespace KitsuSeasons.Logic
                 (string)animeDetails.attributes.averageRating,
                 (string)animeDetails.attributes.startDate,
                 (string)animeDetails.attributes.endDate,
-                (string)animeDetails.attributes.ageRating);
+                (string)animeDetails.attributes.ageRating,
+                index == 0 ? 150 : 0,
+                () => AddAnimeToList(anime.Id));
 
             seasonExpanders[index].SeasonEntries.Add(seasonEntry);
+        }
+
+        private void AddAnimeToList(int id)
+        {
+
         }
 
         private void ClearList(ObservableCollection<ISeasonExpander> seasonExpanders)

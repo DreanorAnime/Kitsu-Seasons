@@ -1,4 +1,4 @@
-﻿using KitsuSeasons.Enums;
+﻿using ModelViewViewModel.commands;
 
 namespace KitsuSeasons.Interfaces
 {
@@ -19,5 +19,9 @@ namespace KitsuSeasons.Interfaces
         string AiredText { get; } 
 
         string Rating { get; }
+
+        int AddButtonSize { get; }
+
+        ActionCommand AddAnimeToListCmd { get; }
     }
 }

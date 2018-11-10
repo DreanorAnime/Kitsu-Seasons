@@ -26,6 +26,7 @@
 
         <TextBlock HorizontalAlignment="Stretch"
                    VerticalAlignment="Stretch"
+                   x:Name="Overlay"
                    Panel.ZIndex="100">
             <TextBlock.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4" />
@@ -37,6 +38,9 @@
                         <DataTrigger Binding="{Binding ElementName=Cover, Path=IsMouseOver}" Value="True">
                             <Setter Property="Visibility" Value="Visible" />
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=AddButton, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Visibility" Value="Visible" />
                         </Trigger>
@@ -44,6 +48,15 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
+
+        <Button HorizontalAlignment="Center"
+                x:Name="AddButton"
+                VerticalAlignment="Center"
+                Content="Add to Library"
+                Command="{Binding Path=AddAnimeToListCmd}"
+                Panel.ZIndex="101"
+                Width="{Binding Path=AddButtonSize, UpdateSourceTrigger=PropertyChanged}"
+                Visibility="{Binding Visibility, ElementName=Overlay}"/>
 
         <TextBlock FontSize="18"
                    TextWrapping="Wrap"

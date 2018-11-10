@@ -1,4 +1,5 @@
 ﻿using KitsuSeasons.Interfaces;
+using ModelViewViewModel.commands;
 using System;
 using System.Globalization;
 
@@ -6,7 +7,7 @@ namespace KitsuSeasons.Models
 {
     public class SeasonEntry : ISeasonEntry
     {
-        public SeasonEntry(string name, string episodes, string imagePath, string type, string status, string score, string startDate, string endDate, string rating)
+        public SeasonEntry(string name, string episodes, string imagePath, string type, string status, string score, string startDate, string endDate, string rating, int buttonSize, Action addAnimeToList)
         {
             string formattedStartDate = string.IsNullOrWhiteSpace(startDate) ? "-" 
                 : DateTime.ParseExact(startDate, "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy");
@@ -22,7 +23,11 @@ namespace KitsuSeasons.Models
             ScoreText = $"Score: {GetValueOrDefault(score)}%";
             AiredText = $"Aired: {formattedStartDate} to {formattedEndDate}";
             Rating = UppercaseFirst(GetValueOrDefault(rating));
+            AddButtonSize = buttonSize;
+            AddAnimeToListCmd = new ActionCommand(addAnimeToList);
         }
+
+        public ActionCommand AddAnimeToListCmd { get; }
 
         public string ImagePath { get; }
 
@@ -39,6 +44,8 @@ namespace KitsuSeasons.Models
         public string AiredText { get; }
 
         public string Rating { get; }
+
+        public int AddButtonSize { get; }
 
         private static string UppercaseFirst(string text)
         {
