@@ -6,9 +6,7 @@ Search through seasons and see which ones aren't on your list
 - Look through all current and past seasons
 - See which ones are on what part of your list
 - Save anime to your planned list
-
-## Upcoming
-- Filters
+- Filter all the seasons by Name, Type, Status, Age Rating
 
 # Building
 
