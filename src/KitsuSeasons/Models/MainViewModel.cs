@@ -29,7 +29,7 @@ namespace KitsuSeasons.Models
             var saveData = controller.LoadSaveData();
             Username = saveData.Username;
             SeasonList = controller.PopulateSeasonSelection();
-
+            FilterText = string.Empty;
             SeasonExpanders = new ObservableCollection<ISeasonExpander>
             {
                 new SeasonExpanderModel(new ObservableCollection<ISeasonEntry>(), "Not in List"),
@@ -85,11 +85,23 @@ namespace KitsuSeasons.Models
             set { Set(x => x.Username, value); }
         }
 
+        public string FilterText
+        {
+            get { return Get(x => x.FilterText); }
+            set { Set(x => x.FilterText, value); }
+        }
+
         private void SeasonEntries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add && ProgressModel.ProgressValue != ProgressModel.ProgressMaximum)
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add )
             {
-                SetProgress();
+                if (ProgressModel.ProgressValue != ProgressModel.ProgressMaximum)
+                {
+                    SetProgress();
+                }
+
+                var entry = (ISeasonEntry)e.NewItems[0];
+                entry.IsHidden = controller.DoesFilterApply(entry, FilterText.ToLower());
             }
         }
 
@@ -113,6 +125,11 @@ namespace KitsuSeasons.Models
             if (e.PropertyName == GetPropertyName(x => x.Username) && string.IsNullOrWhiteSpace(this[GetPropertyName(x => x.Username)]))
             {
                 controller.SaveUsername(Username);
+            }
+
+            if (e.PropertyName == GetPropertyName(x => x.FilterText))
+            {
+                controller.FilterResults(SeasonExpanders, FilterText);
             }
         }
     }

@@ -77,5 +77,31 @@ namespace KitsuSeasons.Logic
         {
             animeJob.LoadSeasons(seasonExpanders, selectedSeason, setMaxProgress);
         }
+
+        public void FilterResults(ObservableCollection<ISeasonExpander> seasonExpanders, string filterText)
+        {
+            string filter = filterText.ToLower();
+            foreach (var expander in seasonExpanders)
+            {
+                foreach (var entry in expander.SeasonEntries)
+                {
+                    entry.IsHidden = DoesFilterApply(entry, filter);
+                }
+            }
+        }
+
+        public bool DoesFilterApply(ISeasonEntry entry, string filter)
+        {
+            return !(EqualOrContains(entry.Name, filter)
+                || EqualOrContains(entry.Status, filter)
+                || EqualOrContains(entry.Type, filter)
+                || EqualOrContains(entry.Rating, filter));
+        }
+
+        private bool EqualOrContains(string a, string b)
+        {
+            string c = a.ToLower();
+            return c.Equals(b) || c.Contains(b);
+        }
     }
 }

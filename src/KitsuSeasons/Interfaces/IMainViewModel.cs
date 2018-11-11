@@ -26,6 +26,8 @@ namespace KitsuSeasons.Interfaces
 
         string Username { get; set; }
 
+        string FilterText { get; set; }
+
         IProgressModel ProgressModel { get; }
     }
 }

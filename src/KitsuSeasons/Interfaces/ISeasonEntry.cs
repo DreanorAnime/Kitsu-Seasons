@@ -1,8 +1,9 @@
 ﻿using ModelViewViewModel.commands;
+using System.ComponentModel;
 
 namespace KitsuSeasons.Interfaces
 {
-    public interface ISeasonEntry
+    public interface ISeasonEntry : INotifyPropertyChanged
     {
         string ImagePath { get; }
 
@@ -25,5 +26,7 @@ namespace KitsuSeasons.Interfaces
         ActionCommand AddAnimeToListCmd { get; }
 
         int AnimeId { get; }
+
+        bool IsHidden { get; set; }
     }
 }

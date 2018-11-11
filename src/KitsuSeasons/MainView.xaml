@@ -124,6 +124,7 @@
             </Grid>
           
             <TextBox Grid.Column="5"
+                     Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}"
                      Margin="0 12 6 12"
                      BorderThickness="0"
                      Width="250"

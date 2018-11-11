@@ -1,11 +1,12 @@
 ﻿using KitsuSeasons.Interfaces;
+using ModelViewViewModel.Base;
 using ModelViewViewModel.commands;
 using System;
 using System.Globalization;
 
 namespace KitsuSeasons.Models
 {
-    public class SeasonEntry : ISeasonEntry
+    public class SeasonEntry : ViewModelBase<ISeasonEntry>, ISeasonEntry
     {
         public SeasonEntry(string name, string episodes, string imagePath, string type, string status, string score, string startDate, string endDate, string rating, int buttonSize, int animeId, Action addAnimeToList)
         {
@@ -30,25 +31,70 @@ namespace KitsuSeasons.Models
 
         public ActionCommand AddAnimeToListCmd { get; }
 
-        public string ImagePath { get; }
+        public string ImagePath
+        {
+            get { return Get(x => x.ImagePath); }
+            private set { Set(x => x.ImagePath, value); }
+        }
 
-        public int AnimeId { get; }
+        public int AnimeId
+        {
+            get { return Get(x => x.AnimeId); }
+            private set { Set(x => x.AnimeId, value); }
+        }
 
-        public string Name { get; }
+        public string Name
+        {
+            get { return Get(x => x.Name); }
+            private set { Set(x => x.Name, value); }
+        }
 
-        public string EpisodeText { get; }
+        public string EpisodeText
+        {
+            get { return Get(x => x.EpisodeText); }
+            private set { Set(x => x.EpisodeText, value); }
+        }
 
-        public string Type { get; }
+        public string Type
+        {
+            get { return Get(x => x.Type); }
+            private set { Set(x => x.Type, value); }
+        }
 
-        public string Status { get; }
+        public string Status
+        {
+            get { return Get(x => x.Status); }
+            private set { Set(x => x.Status, value); }
+        }
 
-        public string ScoreText { get; }
+        public string ScoreText
+        {
+            get { return Get(x => x.ScoreText); }
+            private set { Set(x => x.ScoreText, value); }
+        }
 
-        public string AiredText { get; }
+        public string AiredText
+        {
+            get { return Get(x => x.AiredText); }
+            private set { Set(x => x.AiredText, value); }
+        }
 
-        public string Rating { get; }
+        public string Rating
+        {
+            get { return Get(x => x.Rating); }
+            private set { Set(x => x.Rating, value); }
+        }
+        public int AddButtonSize
+        {
+            get { return Get(x => x.AddButtonSize); }
+            set { Set(x => x.AddButtonSize, value); }
+        }
 
-        public int AddButtonSize { get; set; }
+        public bool IsHidden
+        {
+            get { return Get(x => x.IsHidden); }
+            set { Set(x => x.IsHidden, value); }
+        }
 
         private static string UppercaseFirst(string text)
         {
