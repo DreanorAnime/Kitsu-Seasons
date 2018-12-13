@@ -81,7 +81,7 @@
                       Margin="0 12 0 12"
                       BorderThickness="0"
                       IsSynchronizedWithCurrentItem="True"
-                      SelectedItem="{Binding Path=SelectedSeason, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path=SelectedSeason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding Path=SeasonList, UpdateSourceTrigger=PropertyChanged}"
                       Width="120">
             </ComboBox>

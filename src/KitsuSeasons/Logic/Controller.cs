@@ -63,6 +63,31 @@ namespace KitsuSeasons.Logic
             return new ObservableCollection<ISelectSeason>(list);
         }
 
+        public int GetCurrentSeasonIndex()
+        {
+            switch (DateTime.Now.Month)
+            {
+                case 1:
+                case 2:
+                case 3:
+                    return 7;
+                case 4:
+                case 5:
+                case 6:
+                    return 6;
+                case 7:
+                case 8:
+                case 9:
+                    return 5;
+                case 10:
+                case 11:
+                case 12:
+                    return 4;
+                default:
+                    return 0;
+            }
+        }
+
         public void SaveUsername(string username)
         {
             DataStructure.Save(new SaveData(username, string.Empty));

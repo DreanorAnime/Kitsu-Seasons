@@ -29,6 +29,8 @@ namespace KitsuSeasons.Models
             var saveData = controller.LoadSaveData();
             Username = saveData.Username;
             SeasonList = controller.PopulateSeasonSelection();
+            SelectedSeason = SeasonList[controller.GetCurrentSeasonIndex()];
+
             FilterText = string.Empty;
             SeasonExpanders = new ObservableCollection<ISeasonExpander>
             {

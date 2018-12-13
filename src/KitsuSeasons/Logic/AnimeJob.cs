@@ -62,7 +62,7 @@ namespace KitsuSeasons.Logic
                     ClearList();
                 }
             }
-            catch (Exception ex)
+            catch
             {
             }
         }
@@ -157,10 +157,10 @@ namespace KitsuSeasons.Logic
         {
             var result = await Library.AddAnime(UserId, animeId, Status.planned);
 
-            var a = SeasonExpanders[0].SeasonEntries.FirstOrDefault(x => x.AnimeId == animeId);
-            a.AddButtonSize = 0;
-            SeasonExpanders[0].SeasonEntries.Remove(a);
-            SeasonExpanders[5].SeasonEntries.Add(a);
+            var expander = SeasonExpanders[0].SeasonEntries.FirstOrDefault(x => x.AnimeId == animeId);
+            expander.AddButtonSize = 0;
+            SeasonExpanders[0].SeasonEntries.Remove(expander);
+            SeasonExpanders[5].SeasonEntries.Add(expander);
         }
 
         private void ClearList()
