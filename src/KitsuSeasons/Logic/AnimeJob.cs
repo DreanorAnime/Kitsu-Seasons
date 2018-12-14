@@ -159,8 +159,8 @@ namespace KitsuSeasons.Logic
 
             var expander = SeasonExpanders[0].SeasonEntries.FirstOrDefault(x => x.AnimeId == animeId);
             expander.AddButtonSize = 0;
-            SeasonExpanders[0].SeasonEntries.Remove(expander);
-            SeasonExpanders[5].SeasonEntries.Add(expander);
+            SeasonExpanders.First().SeasonEntries.Remove(expander);
+            SeasonExpanders.Last().SeasonEntries.Add(expander);
         }
 
         private void ClearList()
