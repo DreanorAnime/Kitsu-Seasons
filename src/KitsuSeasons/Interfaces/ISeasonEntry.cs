@@ -25,6 +25,8 @@ namespace KitsuSeasons.Interfaces
 
         ActionCommand AddAnimeToListCmd { get; }
 
+        ActionCommand DoubleClickCmd { get; }
+
         int AnimeId { get; }
 
         bool IsHidden { get; set; }

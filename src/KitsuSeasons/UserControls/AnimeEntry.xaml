@@ -19,6 +19,10 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.InputBindings>
+            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=DoubleClickCmd}" />
+        </Grid.InputBindings>
+        
         <Image Name="Cover"
                Source="{Binding Path=ImagePath}" 
                HorizontalAlignment="Center" 

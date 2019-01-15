@@ -27,9 +27,17 @@ namespace KitsuSeasons.Models
             AddButtonSize = buttonSize;
             AnimeId = animeId;
             AddAnimeToListCmd = new ActionCommand(addAnimeToList);
+            DoubleClickCmd = new ActionCommand(showDetails);
+        }
+
+        private void showDetails()
+        {
+            new Details().Show();
         }
 
         public ActionCommand AddAnimeToListCmd { get; }
+
+        public ActionCommand DoubleClickCmd { get; }
 
         public string ImagePath
         {

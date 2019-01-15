@@ -81,6 +81,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Details.xaml.cs">
+      <DependentUpon>Details.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Enums\AgeRating.cs" />
     <Compile Include="Enums\AiringStatus.cs" />
     <Compile Include="Enums\SeasonType.cs" />
@@ -100,6 +103,10 @@
     <Compile Include="UserControls\SeasonExpander.xaml.cs">
       <DependentUpon>SeasonExpander.xaml</DependentUpon>
     </Compile>
+    <Page Include="Details.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\AnimeEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
