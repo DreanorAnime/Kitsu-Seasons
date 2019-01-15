@@ -1,27 +1,31 @@
 ﻿<Controls:MetroWindow x:Class="KitsuSeasons.Details"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KitsuSeasons"
-        ShowIconOnTitleBar="True"
-        ShowTitleBar="True"
-        Icon="img\kit.png"
-        NonActiveWindowTitleBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
-        NonActiveBorderBrush="{DynamicResource ResourceKey=DarkPurpleBrush}"
-        BorderBrush="{DynamicResource ResourceKey=DarkPurpleBrush}"
-        WindowStartupLocation="CenterScreen"
-        Background="{DynamicResource ResourceKey=DarkPurpleBrush}"
-        WindowButtonCommandsOverlayBehavior="Always"
-        TitleCaps="False"
-        TitleAlignment="Center"
-        mc:Ignorable="d"
-        Title="Anime details" Height="450" Width="800">
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      ShowIconOnTitleBar="True"
+                      ShowTitleBar="True"
+                      Icon="img\kit.png"
+                      NonActiveWindowTitleBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
+                      NonActiveBorderBrush="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                      BorderBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
+                      BorderThickness="1"
+                      WindowStartupLocation="CenterScreen"
+                      Background="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                      WindowButtonCommandsOverlayBehavior="Always"
+                      TitleCaps="False"
+                      TitleAlignment="Center"
+                      mc:Ignorable="d"
+                      ShowMaxRestoreButton="False"
+                      ShowMinButton="False"
+                      Title="Anime details"
+                      ResizeMode="NoResize"
+                      Height="450"
+                      Width="800">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
         <Style x:Key="CollapsedHeader" TargetType="{x:Type GridViewColumnHeader}">
@@ -31,56 +35,72 @@
 
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Image Grid.RowSpan="4"
-               Source="img\placeholder.jpg" 
+        <Image Grid.RowSpan="5"
+               Height="402"
+               Width="208"
+               Source="{Binding Path=ImagePath}"
                VerticalAlignment="Top"/>
 
-        <TextBlock Grid.Column="1" FontSize="16" Text="Overlord III" Margin="12 6 6 6"/>
-
-        <StackPanel Grid.Column="1" Grid.Row="1" Margin="24 6 6 6" Orientation="Horizontal">
+        <TextBlock Grid.Column="1" 
+                   FontSize="16" 
+                   Text="{Binding Path=Title}" 
+                   Margin="12 6 6 6"/>
+<!--Todo-->
+        <StackPanel Grid.Column="1" 
+                    Grid.Row="1" 
+                    Margin="24 6 6 6" 
+                    Orientation="Horizontal">
             <TextBlock Margin="0 0 6 0">          
-                <Hyperlink NavigateUri="Overlord III">
+                <Hyperlink NavigateUri="Add to list">
                     Add to list
                 </Hyperlink>
             </TextBlock>
             <TextBlock Margin="6 0 0 0" >          
-                <Hyperlink NavigateUri="Overlord III">
+                <Hyperlink NavigateUri="Open in kitsu">
                     Open in kitsu
                 </Hyperlink>
             </TextBlock>
         </StackPanel>
-       
-        
+<!--Todo-->
+
         <StackPanel Grid.Column="1"
                     Grid.Row="2"
                     Margin="12 6 6 6">
-            <TextBlock Text="Alternative titles"/>
+            <TextBlock Text="Alternative titles"
+                       FontWeight="Bold"/>
             <Separator/>
+            <TextBlock TextWrapping="Wrap"
+                       Text="{Binding Path=AlternativeTitles}"/>
         </StackPanel>
 
         <StackPanel Grid.Column="1"
                     Grid.Row="3"
                     Margin="12 6 6 6">
-            <TextBlock Text="Details"/>
+            <TextBlock Text="Details"
+                       FontWeight="Bold"/>
             <Separator/>
+            <TextBlock TextWrapping="Wrap"/>
         </StackPanel>
         
         <StackPanel Grid.Column="1"
                     Grid.Row="4"
                     Margin="12 6 6 6">
-            <TextBlock Text="Synopsis"/>
+            <TextBlock Text="Synopsis"
+                       FontWeight="Bold"/>
             <Separator/>
+            <TextBlock TextWrapping="Wrap" 
+                       Text="{Binding Path=Synopsis}"/>
         </StackPanel>
     </Grid>
 </Controls:MetroWindow>

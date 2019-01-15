@@ -1,6 +1,4 @@
 ﻿using MahApps.Metro.Controls;
-using System.Threading;
-using System.Windows;
 
 namespace KitsuSeasons
 {
@@ -9,8 +7,7 @@ namespace KitsuSeasons
     /// </summary>
     public partial class Details : MetroWindow
     {
-        private Mutex mutex = null;
-
+        //todo mutex
         public Details()
         {
             InitializeComponent();
