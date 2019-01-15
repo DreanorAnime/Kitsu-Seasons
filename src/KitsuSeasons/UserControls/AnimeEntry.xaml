@@ -41,6 +41,12 @@
                         <DataTrigger Binding="{Binding ElementName=AddButton, Path=IsMouseOver}" Value="True">
                             <Setter Property="Visibility" Value="Visible" />
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=BottomGrid, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=TopBlock, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Visibility" Value="Visible" />
                         </Trigger>
@@ -64,6 +70,7 @@
                    TextAlignment="Center"
                    VerticalAlignment="Top"
                    Text="{Binding Path=Name}"
+                   x:Name="TopBlock"
                    MinHeight="50">
             <TextBlock.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4" />
@@ -71,7 +78,8 @@
         </TextBlock>
 
         <Grid VerticalAlignment="Bottom"
-              HorizontalAlignment="Stretch">
+              HorizontalAlignment="Stretch"
+              x:Name="BottomGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="25"/>
