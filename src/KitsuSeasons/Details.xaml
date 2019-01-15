@@ -15,9 +15,72 @@
         Background="{DynamicResource ResourceKey=DarkPurpleBrush}"
         WindowButtonCommandsOverlayBehavior="Always"
         TitleCaps="False"
+        TitleAlignment="Center"
         mc:Ignorable="d"
-        Title="Details" Height="450" Width="800">
-    <Grid>
+        Title="Anime details" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="CollapsedHeader" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.RowSpan="4"
+               Source="img\placeholder.jpg" 
+               VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Column="1" FontSize="16" Text="Overlord III" Margin="12 6 6 6"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="24 6 6 6" Orientation="Horizontal">
+            <TextBlock Margin="0 0 6 0">          
+                <Hyperlink NavigateUri="Overlord III">
+                    Add to list
+                </Hyperlink>
+            </TextBlock>
+            <TextBlock Margin="6 0 0 0" >          
+                <Hyperlink NavigateUri="Overlord III">
+                    Open in kitsu
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+       
         
+        <StackPanel Grid.Column="1"
+                    Grid.Row="2"
+                    Margin="12 6 6 6">
+            <TextBlock Text="Alternative titles"/>
+            <Separator/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+                    Grid.Row="3"
+                    Margin="12 6 6 6">
+            <TextBlock Text="Details"/>
+            <Separator/>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1"
+                    Grid.Row="4"
+                    Margin="12 6 6 6">
+            <TextBlock Text="Synopsis"/>
+            <Separator/>
+        </StackPanel>
     </Grid>
 </Controls:MetroWindow>
