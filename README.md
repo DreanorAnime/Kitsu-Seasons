@@ -20,5 +20,7 @@ Clone the repository including submodules
 
 Run `prebuild.ps1` if you want to checkout the latest version of all submodules
 
-# Preview
+### Home
 ![preview](preview.png)
+### Individual details
+![details](details.png)

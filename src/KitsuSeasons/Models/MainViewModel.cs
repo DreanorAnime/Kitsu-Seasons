@@ -24,7 +24,7 @@ namespace KitsuSeasons.Models
 
         public MainViewModel(IController controller)
         {
-            ProgressModel = new ProgressModel();
+            ProgressModel = new ProgressViewModel();
             this.controller = controller;
             var saveData = controller.LoadSaveData();
             Username = saveData.Username;
@@ -57,7 +57,7 @@ namespace KitsuSeasons.Models
             set { Set(x => x.OptionsAreVisible, value); }
         }
 
-        public IProgressModel ProgressModel
+        public IProgressViewModel ProgressModel
         {
             get { return Get(x => x.ProgressModel); }
             private set { Set(x => x.ProgressModel, value); }

@@ -8,7 +8,7 @@ namespace KitsuSeasons.Models
 {
     public class SeasonEntry : ViewModelBase<ISeasonEntry>, ISeasonEntry
     {
-        public SeasonEntry(string name, string episodes, string imagePath, string type, string status, string score, string startDate, string endDate, string rating, int buttonSize, int animeId, Action addAnimeToList)
+        public SeasonEntry(string name, string episodes, string imagePath, string type, string status, string score, string startDate, string endDate, string rating, int buttonSize, int animeId, Action addAnimeToList, Action showDetails)
         {
             string formattedStartDate = string.IsNullOrWhiteSpace(startDate) ? "-" 
                 : DateTime.ParseExact(startDate, "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy");
@@ -28,11 +28,6 @@ namespace KitsuSeasons.Models
             AnimeId = animeId;
             AddAnimeToListCmd = new ActionCommand(addAnimeToList);
             DoubleClickCmd = new ActionCommand(showDetails);
-        }
-
-        private void showDetails()
-        {
-            new Details().Show();
         }
 
         public ActionCommand AddAnimeToListCmd { get; }

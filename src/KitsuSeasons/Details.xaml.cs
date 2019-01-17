@@ -1,4 +1,6 @@
-﻿using MahApps.Metro.Controls;
+﻿using KitsuSeasons.Interfaces;
+using MahApps.Metro.Controls;
+using System.ComponentModel;
 
 namespace KitsuSeasons
 {
@@ -7,10 +9,21 @@ namespace KitsuSeasons
     /// </summary>
     public partial class Details : MetroWindow
     {
-        //todo mutex
-        public Details()
+        public Details(IDetailViewModel dataViewModel)
         {
             InitializeComponent();
+            DataContext = dataViewModel;
+        }
+
+        public void Refresh(IDetailViewModel detailViewModel)
+        {
+            DataContext = detailViewModel;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
     }
 }

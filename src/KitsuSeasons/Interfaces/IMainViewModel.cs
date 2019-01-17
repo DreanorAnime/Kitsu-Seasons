@@ -28,6 +28,6 @@ namespace KitsuSeasons.Interfaces
 
         string FilterText { get; set; }
 
-        IProgressModel ProgressModel { get; }
+        IProgressViewModel ProgressModel { get; }
     }
 }

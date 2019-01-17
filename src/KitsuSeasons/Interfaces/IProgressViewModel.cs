@@ -2,7 +2,7 @@
 
 namespace KitsuSeasons.Interfaces
 {
-    public interface IProgressModel : INotifyPropertyChanged
+    public interface IProgressViewModel : INotifyPropertyChanged
     {
         int ProgressValue { get; set; }
 

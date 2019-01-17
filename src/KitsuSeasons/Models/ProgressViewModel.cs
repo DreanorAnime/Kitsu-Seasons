@@ -3,9 +3,9 @@ using ModelViewViewModel.Base;
 
 namespace KitsuSeasons.Models
 {
-    public class ProgressModel : ViewModelBase<IProgressModel>, IProgressModel
+    public class ProgressViewModel : ViewModelBase<IProgressViewModel>, IProgressViewModel
     {
-        public ProgressModel()
+        public ProgressViewModel()
         {
             ProgressMaximum = 100;
         }

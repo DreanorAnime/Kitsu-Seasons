@@ -2,9 +2,11 @@
 using Kitsu.Api;
 using KitsuSeasons.Interfaces;
 using KitsuSeasons.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -21,6 +23,7 @@ namespace KitsuSeasons.Logic
         private int UserId { get; set; }
         private Action<int> SetMaxProgress { get; set; }
         private ObservableCollection<ISeasonExpander> SeasonExpanders { get; set; }
+        private Details details;
 
         public void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason, Action<int> setMaxProgress)
         {
@@ -148,19 +151,77 @@ namespace KitsuSeasons.Logic
                 (string)animeDetails.attributes.ageRating,
                 index == 0 ? 150 : 0,
                 anime.Id,
-                () => AddAnimeToList(anime.Id));
+                () => AddAnimeToList(anime.Id),
+                () => ShowAnimeDetails(anime, imageLocation, animeDetails));
 
             SeasonExpanders[index].SeasonEntries.Add(seasonEntry);
+        }
+
+        private void OpenOrCreateNewDetails(IDetailViewModel detailViewModel)
+        {
+            if (details == null)
+            {
+                details = new Details(detailViewModel);
+            }
+            else
+            {
+                details.Refresh(detailViewModel);
+            }
+
+            details.Show();
+            details.Activate();
+        }
+
+        private void ShowAnimeDetails(SeasonalAnime anime, string imageLocation, dynamic animeDetails)
+        {
+            dynamic attributes = animeDetails.attributes;
+            string alternativeTitles = string.Join(", ", ((JObject)attributes.titles).Values());
+      
+            var detailViewModel = new DetailViewModel((string)attributes.synopsis, anime.Name, alternativeTitles, imageLocation,
+                () => Process.Start($"https://kitsu.io/anime/{anime.Id}"),
+                () => 
+                {
+                    if (!anime.IsInList)
+                    {
+                        AddAnimeToList(anime.Id);
+                        details.Hide();
+                    }
+                    //todo give message
+                });
+
+            OpenOrCreateNewDetails(detailViewModel);
         }
 
         private async void AddAnimeToList(int animeId)
         {
             var result = await Library.AddAnime(UserId, animeId, Status.planned);
 
-            var expander = SeasonExpanders[0].SeasonEntries.FirstOrDefault(x => x.AnimeId == animeId);
-            expander.AddButtonSize = 0;
-            SeasonExpanders.First().SeasonEntries.Remove(expander);
-            SeasonExpanders.Last().SeasonEntries.Add(expander);
+            if (!string.IsNullOrEmpty(result) && result.Contains("errors"))
+            {
+               var a =  Newtonsoft.Json.JsonConvert.DeserializeObject(result);
+                //todo
+                //                {
+                //                    {
+                //                        "errors": [
+                //                          {
+                //      "title": "has already been taken",
+                //                            "detail": "animeId - has already been taken",
+                //                            "code": "100",
+                //                            "source": {
+                //        "pointer": "/data/attributes/animeId"
+                //      },
+                //      "status": "422"
+                //    }
+                //  ]
+                //}}
+            }
+            else
+            {
+                var expander = SeasonExpanders[0].SeasonEntries.FirstOrDefault(x => x.AnimeId == animeId);
+                expander.AddButtonSize = 0;
+                SeasonExpanders.First().SeasonEntries.Remove(expander);
+                SeasonExpanders.Last().SeasonEntries.Add(expander);
+            }
         }
 
         private void ClearList()

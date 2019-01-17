@@ -15,6 +15,9 @@
                       WindowStartupLocation="CenterScreen"
                       Background="{DynamicResource ResourceKey=DarkPurpleBrush}"
                       WindowButtonCommandsOverlayBehavior="Always"
+                      EnableDWMDropShadow="True"
+                      GlowBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
+                      NonActiveGlowBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
                       TitleCaps="False"
                       Width="924">
     <Controls:MetroWindow.RightWindowCommands>

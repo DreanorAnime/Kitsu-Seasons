@@ -88,8 +88,8 @@
     <Compile Include="Enums\AiringStatus.cs" />
     <Compile Include="Enums\SeasonType.cs" />
     <Compile Include="Interfaces\IController.cs" />
-    <Compile Include="Interfaces\IDetail.cs" />
-    <Compile Include="Interfaces\IProgressModel.cs" />
+    <Compile Include="Interfaces\IDetailViewModel.cs" />
+    <Compile Include="Interfaces\IProgressViewModel.cs" />
     <Compile Include="Interfaces\ISeasonExpander.cs" />
     <Compile Include="Interfaces\ISelectSeason.cs" />
     <Compile Include="Logic\AES.cs" />
@@ -97,7 +97,8 @@
     <Compile Include="Logic\Controller.cs" />
     <Compile Include="Logic\DataStructure.cs" />
     <Compile Include="Logic\Validator.cs" />
-    <Compile Include="Models\ProgressModel.cs" />
+    <Compile Include="Models\DetailViewModel.cs" />
+    <Compile Include="Models\ProgressViewModel.cs" />
     <Compile Include="Models\SaveData.cs" />
     <Compile Include="Models\SeasonExpander.cs" />
     <Compile Include="Models\SelectSeason.cs" />

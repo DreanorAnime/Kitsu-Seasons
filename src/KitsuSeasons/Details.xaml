@@ -8,16 +8,19 @@
                       ShowTitleBar="True"
                       Icon="img\kit.png"
                       NonActiveWindowTitleBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
-                      NonActiveBorderBrush="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                      NonActiveBorderBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
                       BorderBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
                       BorderThickness="1"
                       WindowStartupLocation="CenterScreen"
                       Background="{DynamicResource ResourceKey=DarkPurpleBrush}"
+                      GlowBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
+                      NonActiveGlowBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
                       WindowButtonCommandsOverlayBehavior="Always"
                       TitleCaps="False"
                       TitleAlignment="Center"
                       mc:Ignorable="d"
                       ShowMaxRestoreButton="False"
+                      EnableDWMDropShadow="True"
                       ShowMinButton="False"
                       Title="Anime details"
                       ResizeMode="NoResize"
@@ -56,23 +59,22 @@
                    FontSize="16" 
                    Text="{Binding Path=Title}" 
                    Margin="12 6 6 6"/>
-<!--Todo-->
+
         <StackPanel Grid.Column="1" 
                     Grid.Row="1" 
                     Margin="24 6 6 6" 
                     Orientation="Horizontal">
             <TextBlock Margin="0 0 6 0">          
-                <Hyperlink NavigateUri="Add to list">
+                <Hyperlink NavigateUri="Add to list" Command="{Binding Path=AddToListCmd}">
                     Add to list
                 </Hyperlink>
             </TextBlock>
             <TextBlock Margin="6 0 0 0" >          
-                <Hyperlink NavigateUri="Open in kitsu">
+                <Hyperlink NavigateUri="Open in kitsu" Command="{Binding Path=OpenInKitsuCmd}">
                     Open in kitsu
                 </Hyperlink>
             </TextBlock>
         </StackPanel>
-<!--Todo-->
 
         <StackPanel Grid.Column="1"
                     Grid.Row="2"
