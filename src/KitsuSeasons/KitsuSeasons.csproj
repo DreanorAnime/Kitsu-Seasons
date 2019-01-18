@@ -100,6 +100,7 @@
     <Compile Include="Models\DetailViewModel.cs" />
     <Compile Include="Models\ProgressViewModel.cs" />
     <Compile Include="Models\SaveData.cs" />
+    <Compile Include="Models\SeasonalAnime.cs" />
     <Compile Include="Models\SeasonExpander.cs" />
     <Compile Include="Models\SelectSeason.cs" />
     <Compile Include="UserControls\SeasonExpander.xaml.cs">
@@ -156,7 +157,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

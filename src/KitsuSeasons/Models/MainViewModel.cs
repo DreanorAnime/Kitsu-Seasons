@@ -93,6 +93,12 @@ namespace KitsuSeasons.Models
             set { Set(x => x.FilterText, value); }
         }
 
+        public bool IncludeNsfw
+        {
+            get { return Get(x => x.IncludeNsfw); }
+            set { Set(x => x.IncludeNsfw, value); }
+        }
+
         private void SeasonEntries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add )
@@ -103,7 +109,7 @@ namespace KitsuSeasons.Models
                 }
 
                 var entry = (ISeasonEntry)e.NewItems[0];
-                entry.IsHidden = controller.DoesFilterApply(entry, FilterText.ToLower());
+                entry.IsHidden = controller.DoesFilterApply(entry, FilterText.ToLower(), IncludeNsfw);
             }
         }
 
@@ -129,9 +135,10 @@ namespace KitsuSeasons.Models
                 controller.SaveUsername(Username);
             }
 
-            if (e.PropertyName == GetPropertyName(x => x.FilterText))
+            if (e.PropertyName == GetPropertyName(x => x.FilterText)
+                || e.PropertyName == GetPropertyName(x => x.IncludeNsfw))
             {
-                controller.FilterResults(SeasonExpanders, FilterText);
+                controller.FilterResults(SeasonExpanders, FilterText, IncludeNsfw);
             }
         }
     }

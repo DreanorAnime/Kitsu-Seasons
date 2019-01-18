@@ -12,8 +12,8 @@ namespace KitsuSeasons.Interfaces
         void SaveUsername(string emailAddress);
         SaveData LoadSaveData();
         void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason, Action<int> setMaxProgress);
-        void FilterResults(ObservableCollection<ISeasonExpander> seasonExpanders, string filterText);
-        bool DoesFilterApply(ISeasonEntry entry, string filter);
+        void FilterResults(ObservableCollection<ISeasonExpander> seasonExpanders, string filterText, bool includeNsfw);
+        bool DoesFilterApply(ISeasonEntry entry, string filter, bool includeNsfw);
         int GetCurrentSeasonIndex();
     }
 }

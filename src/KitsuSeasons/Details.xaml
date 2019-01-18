@@ -24,7 +24,7 @@
                       ShowMinButton="False"
                       Title="Anime details"
                       ResizeMode="NoResize"
-                      Height="450"
+                      Height="500"
                       Width="800">
     <Window.Resources>
         <Style TargetType="TextBlock">
@@ -92,7 +92,39 @@
             <TextBlock Text="Details"
                        FontWeight="Bold"/>
             <Separator/>
-            <TextBlock TextWrapping="Wrap"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="Type:" />
+                    <TextBlock Text="Episodes:" />
+                    <TextBlock Text="Status:" />
+                    <TextBlock Text="Aired:" />
+                    <TextBlock Text="Season:" />
+                    <TextBlock Text="Rating:" />
+                    <TextBlock Text="Studios:" />
+                    <TextBlock Text="Length:" />
+                    <TextBlock Text="Categories:" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding Path=Type}" />
+                    <TextBlock Text="{Binding Path=Episodes}" />
+                    <TextBlock Text="{Binding Path=Status}" />
+                    <TextBlock Text="{Binding Path=Aired}" />
+                    <TextBlock Text="{Binding Path=Season}" />
+                    <TextBlock Text="{Binding Path=Rating}" />
+                    <TextBlock Text="{Binding Path=Studios}" />
+                    <TextBlock Text="{Binding Path=Length}" />
+                    <TextBlock Text="{Binding Path=Categories}" />
+                </StackPanel>
+            </Grid>
         </StackPanel>
         
         <StackPanel Grid.Column="1"

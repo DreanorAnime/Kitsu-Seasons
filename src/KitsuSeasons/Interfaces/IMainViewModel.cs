@@ -28,6 +28,8 @@ namespace KitsuSeasons.Interfaces
 
         string FilterText { get; set; }
 
+        bool IncludeNsfw { get; set; }
+
         IProgressViewModel ProgressModel { get; }
     }
 }

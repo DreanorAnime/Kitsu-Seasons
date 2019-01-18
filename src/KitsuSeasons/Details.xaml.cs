@@ -1,5 +1,6 @@
 ﻿using KitsuSeasons.Interfaces;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 
 namespace KitsuSeasons
@@ -24,6 +25,11 @@ namespace KitsuSeasons
         {
             e.Cancel = true;
             Hide();
+        }
+
+        public async void ShowMessage(string title, string message)
+        {
+            await this.ShowMessageAsync(title, message);
         }
     }
 }

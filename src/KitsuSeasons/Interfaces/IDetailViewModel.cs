@@ -13,6 +13,24 @@ namespace KitsuSeasons.Interfaces
 
         string ImagePath { get; }
 
+        string Type { get; }
+
+        string Episodes { get; }
+
+        string Status { get; }
+
+        string Aired { get; }
+
+        string Season { get; }
+
+        string Rating { get; }
+
+        string Studios { get; }
+
+        string Length { get; }
+
+        string Categories { get; }
+
         ActionCommand OpenInKitsuCmd { get; }
 
         ActionCommand AddToListCmd { get; }

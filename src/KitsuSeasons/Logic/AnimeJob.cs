@@ -2,7 +2,6 @@
 using Kitsu.Api;
 using KitsuSeasons.Interfaces;
 using KitsuSeasons.Models;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +23,7 @@ namespace KitsuSeasons.Logic
         private Action<int> SetMaxProgress { get; set; }
         private ObservableCollection<ISeasonExpander> SeasonExpanders { get; set; }
         private Details details;
+        private ISelectSeason SelectedSeason { get; set; }
 
         public void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason, Action<int> setMaxProgress)
         {
@@ -42,6 +42,7 @@ namespace KitsuSeasons.Logic
                 var auth = await Authentication.Authenticate(data.Username, new AES().Decrypt(data.Password));
                 var user = await User.GetUserAsync(data.Username);
                 UserId = (int)user.data[0].id;
+                SelectedSeason = selectedSeason;
 
                 LoadEntireSeason(selectedSeason.SeasonDisplay, selectedSeason.Year, cts.Token);
             }, cts.Token).Start();
@@ -113,15 +114,14 @@ namespace KitsuSeasons.Logic
 
                 if (anime.data.Count > 0)
                 {
-                    var status = anime.data[0].attributes.status;
-                    seasonalAnime = new SeasonalAnime(id, name, (string)status, true);
+                    seasonalAnime = new SeasonalAnime(id, name, (string)anime.data[0].attributes.status, item.attributes, SelectedSeason.ToString(), true); 
                 }
                 else
                 {
-                    seasonalAnime = new SeasonalAnime(id, name, (string)item.attributes.status, false);
+                    seasonalAnime = new SeasonalAnime(id, name, (string)item.attributes.status, item.attributes, SelectedSeason.ToString(), false);
                 }
 
-                ExecuteWithDispatcher(() => AddSeasonalAnimeToList(seasonalAnime, animeDetails.data));
+                ExecuteWithDispatcher(() => AddSeasonalAnimeToList(seasonalAnime, (string)animeDetails.data.attributes.posterImage.small));
             }
 
             return season;
@@ -132,27 +132,17 @@ namespace KitsuSeasons.Logic
             await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, action);
         }
 
-        private void AddSeasonalAnimeToList(SeasonalAnime anime, dynamic animeDetails)
+        private void AddSeasonalAnimeToList(SeasonalAnime anime, string smallImage)
         {
-            string smallImage = (string)animeDetails.attributes.posterImage.small;
-
             var imageLocation = LoadImage(smallImage, anime.Id);
 
             int index = GetListIndexToModify(anime);
 
-            var seasonEntry = new SeasonEntry(anime.Name,
-                (string)animeDetails.attributes.episodeCount,
+            var seasonEntry = new SeasonEntry(anime,
                 imageLocation,
-                (string)animeDetails.attributes.subtype,
-                (string)animeDetails.attributes.status,
-                (string)animeDetails.attributes.averageRating,
-                (string)animeDetails.attributes.startDate,
-                (string)animeDetails.attributes.endDate,
-                (string)animeDetails.attributes.ageRating,
                 index == 0 ? 150 : 0,
-                anime.Id,
                 () => AddAnimeToList(anime.Id),
-                () => ShowAnimeDetails(anime, imageLocation, animeDetails));
+                () => ShowAnimeDetails(anime, imageLocation));
 
             SeasonExpanders[index].SeasonEntries.Add(seasonEntry);
         }
@@ -172,12 +162,9 @@ namespace KitsuSeasons.Logic
             details.Activate();
         }
 
-        private void ShowAnimeDetails(SeasonalAnime anime, string imageLocation, dynamic animeDetails)
+        private void ShowAnimeDetails(SeasonalAnime anime, string imageLocation)
         {
-            dynamic attributes = animeDetails.attributes;
-            string alternativeTitles = string.Join(", ", ((JObject)attributes.titles).Values());
-      
-            var detailViewModel = new DetailViewModel((string)attributes.synopsis, anime.Name, alternativeTitles, imageLocation,
+            var detailViewModel = new DetailViewModel(anime, imageLocation,
                 () => Process.Start($"https://kitsu.io/anime/{anime.Id}"),
                 () => 
                 {
@@ -186,7 +173,8 @@ namespace KitsuSeasons.Logic
                         AddAnimeToList(anime.Id);
                         details.Hide();
                     }
-                    //todo give message
+
+                    details.ShowMessage(anime.Name, "This is already on your list and can't be added again.");
                 });
 
             OpenOrCreateNewDetails(detailViewModel);
@@ -198,22 +186,7 @@ namespace KitsuSeasons.Logic
 
             if (!string.IsNullOrEmpty(result) && result.Contains("errors"))
             {
-               var a =  Newtonsoft.Json.JsonConvert.DeserializeObject(result);
-                //todo
-                //                {
-                //                    {
-                //                        "errors": [
-                //                          {
-                //      "title": "has already been taken",
-                //                            "detail": "animeId - has already been taken",
-                //                            "code": "100",
-                //                            "source": {
-                //        "pointer": "/data/attributes/animeId"
-                //      },
-                //      "status": "422"
-                //    }
-                //  ]
-                //}}
+                //todo logging
             }
             else
             {

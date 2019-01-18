@@ -1,31 +1,27 @@
-﻿using KitsuSeasons.Interfaces;
+﻿using Kitsu;
+using KitsuSeasons.Interfaces;
+using KitsuSeasons.Logic;
 using ModelViewViewModel.Base;
 using ModelViewViewModel.commands;
 using System;
-using System.Globalization;
 
 namespace KitsuSeasons.Models
 {
     public class SeasonEntry : ViewModelBase<ISeasonEntry>, ISeasonEntry
     {
-        public SeasonEntry(string name, string episodes, string imagePath, string type, string status, string score, string startDate, string endDate, string rating, int buttonSize, int animeId, Action addAnimeToList, Action showDetails)
+        public SeasonEntry(SeasonalAnime seasonalAnime, string imagePath, int buttonSize, Action addAnimeToList, Action showDetails)
         {
-            string formattedStartDate = string.IsNullOrWhiteSpace(startDate) ? "-" 
-                : DateTime.ParseExact(startDate, "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy");
-
-            string formattedEndDate = string.IsNullOrWhiteSpace(endDate) ? "-" 
-                : DateTime.ParseExact(endDate, "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy");
-
-            Name = name;
+            Name = seasonalAnime.Name;
             ImagePath = imagePath;
-            EpisodeText = $"Episodes: {GetValueOrDefault(episodes)}";
-            Type = UppercaseFirst(GetValueOrDefault(type.ToString()));
-            Status = UppercaseFirst(GetValueOrDefault(status.ToString()));
-            ScoreText = $"Score: {GetValueOrDefault(score)}%";
-            AiredText = $"Aired: {formattedStartDate} to {formattedEndDate}";
-            Rating = UppercaseFirst(GetValueOrDefault(rating));
+            EpisodeText = $"Episodes: {seasonalAnime.Episodes}";
+            Type = seasonalAnime.Type;
+            Status = seasonalAnime.StatusInlist.ToString();
+            ScoreText = $"Score: {seasonalAnime.AverageRating}%";
+            AiredText = $"Aired: {seasonalAnime.StartDate} to {seasonalAnime.EndDate}";
+            Rating = seasonalAnime.AgeRating;
             AddButtonSize = buttonSize;
-            AnimeId = animeId;
+            AnimeId = seasonalAnime.Id;
+            Nsfw = seasonalAnime.Nsfw;
             AddAnimeToListCmd = new ActionCommand(addAnimeToList);
             DoubleClickCmd = new ActionCommand(showDetails);
         }
@@ -44,6 +40,12 @@ namespace KitsuSeasons.Models
         {
             get { return Get(x => x.AnimeId); }
             private set { Set(x => x.AnimeId, value); }
+        }
+
+        public bool Nsfw
+        {
+            get { return Get(x => x.Nsfw); }
+            private set { Set(x => x.Nsfw, value); }
         }
 
         public string Name
@@ -97,16 +99,6 @@ namespace KitsuSeasons.Models
         {
             get { return Get(x => x.IsHidden); }
             set { Set(x => x.IsHidden, value); }
-        }
-
-        private static string UppercaseFirst(string text)
-        {
-            return char.ToUpper(text[0]) + text.Substring(1);
-        }
-
-        private string GetValueOrDefault(string value)
-        {
-            return string.IsNullOrWhiteSpace(value) ? "-" : value;
         }
     }
 }

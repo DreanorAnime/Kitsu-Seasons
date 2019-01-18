@@ -30,5 +30,7 @@ namespace KitsuSeasons.Interfaces
         int AnimeId { get; }
 
         bool IsHidden { get; set; }
+
+        bool Nsfw { get; }
     }
 }

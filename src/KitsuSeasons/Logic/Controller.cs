@@ -103,24 +103,31 @@ namespace KitsuSeasons.Logic
             animeJob.LoadSeasons(seasonExpanders, selectedSeason, setMaxProgress);
         }
 
-        public void FilterResults(ObservableCollection<ISeasonExpander> seasonExpanders, string filterText)
+        public void FilterResults(ObservableCollection<ISeasonExpander> seasonExpanders, string filterText, bool includeNsfw)
         {
             string filter = filterText.ToLower();
             foreach (var expander in seasonExpanders)
             {
                 foreach (var entry in expander.SeasonEntries)
                 {
-                    entry.IsHidden = DoesFilterApply(entry, filter);
+                    entry.IsHidden = DoesFilterApply(entry, filter, includeNsfw);
                 }
             }
         }
 
-        public bool DoesFilterApply(ISeasonEntry entry, string filter)
+        public bool DoesFilterApply(ISeasonEntry entry, string filter, bool includeNsfw)
         {
-            return !(EqualOrContains(entry.Name, filter)
-                || EqualOrContains(entry.Status, filter)
-                || EqualOrContains(entry.Type, filter)
-                || EqualOrContains(entry.Rating, filter));
+            bool shouldBeHidden = !(EqualOrContains(entry.Name, filter)
+                           || EqualOrContains(entry.Status, filter)
+                           || EqualOrContains(entry.Type, filter)
+                           || EqualOrContains(entry.Rating, filter));
+
+            if (!shouldBeHidden && entry.Nsfw && !includeNsfw)
+            {
+                return true;
+            }
+
+            return shouldBeHidden;
         }
 
         private bool EqualOrContains(string a, string b)
