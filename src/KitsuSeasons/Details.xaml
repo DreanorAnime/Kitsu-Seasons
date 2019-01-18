@@ -24,7 +24,7 @@
                       ShowMinButton="False"
                       Title="Anime details"
                       ResizeMode="NoResize"
-                      Height="500"
+                      Height="550"
                       Width="800">
     <Window.Resources>
         <Style TargetType="TextBlock">
