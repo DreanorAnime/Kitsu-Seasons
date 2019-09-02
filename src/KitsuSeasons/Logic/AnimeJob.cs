@@ -127,7 +127,7 @@ namespace KitsuSeasons.Logic
                 string posterImage = PlaceHolderImage;
                 
                 JObject jObject = animeDetails.data.attributes.posterImage;
-                if (jObject.HasValues)
+                if (jObject != null)
                 {
                     posterImage = (string)animeDetails.data.attributes.posterImage.small;
                 }
