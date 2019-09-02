@@ -2,6 +2,7 @@
 using Kitsu.Api;
 using KitsuSeasons.Interfaces;
 using KitsuSeasons.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,8 @@ namespace KitsuSeasons.Logic
 {
     public class AnimeJob
     {
+        private const string PlaceHolderImage = "https://raw.githubusercontent.com/DreanorAnime/Kitsu-Seasons/master/src/KitsuSeasons/img/placeholder.jpg";
+
         private CancellationTokenSource cts;
         private int UserId { get; set; }
         private Action<int> SetMaxProgress { get; set; }
@@ -121,7 +124,15 @@ namespace KitsuSeasons.Logic
                     seasonalAnime = new SeasonalAnime(id, name, (string)item.attributes.status, item.attributes, SelectedSeason.ToString(), false);
                 }
 
-                ExecuteWithDispatcher(() => AddSeasonalAnimeToList(seasonalAnime, (string)animeDetails.data.attributes.posterImage.small));
+                string posterImage = PlaceHolderImage;
+                
+                JObject jObject = animeDetails.data.attributes.posterImage;
+                if (jObject.HasValues)
+                {
+                    posterImage = (string)animeDetails.data.attributes.posterImage.small;
+                }
+              
+                ExecuteWithDispatcher(() => AddSeasonalAnimeToList(seasonalAnime, posterImage));
             }
 
             return season;
