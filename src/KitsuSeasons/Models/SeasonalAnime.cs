@@ -18,7 +18,14 @@ namespace KitsuSeasons.Models
             AverageRating = GetValueOrDefault((string)attributes.averageRating);
             StartDate = FormatDate((string)attributes.startDate);
             Synopsis = (string)attributes.synopsis;
+
             EndDate = FormatDate((string)attributes.endDate);
+            string endDate = EndDate;
+            if (endDate == "-" && Episodes != "-")
+            {
+                EndDate = $"{DateTime.Parse(StartDate).AddDays(7 * (int.Parse(Episodes) - 1)).ToShortDateString()}*";
+            }
+
             AgeRating = UppercaseFirst(GetValueOrDefault((string)attributes.ageRating));
             Nsfw = string.IsNullOrWhiteSpace((string)attributes.nsfw) ? false : (bool)attributes.nsfw;
             StatusInlist = (Status)Enum.Parse(typeof(Status), status);

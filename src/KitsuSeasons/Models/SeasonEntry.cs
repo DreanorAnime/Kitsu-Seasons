@@ -11,6 +11,7 @@ namespace KitsuSeasons.Models
     {
         public SeasonEntry(SeasonalAnime seasonalAnime, string imagePath, int buttonSize, Action addAnimeToList, Action showDetails)
         {
+            Anime = seasonalAnime;
             Name = seasonalAnime.Name;
             ImagePath = imagePath;
             EpisodeText = $"Episodes: {seasonalAnime.Episodes}";
@@ -25,6 +26,8 @@ namespace KitsuSeasons.Models
             AddAnimeToListCmd = new ActionCommand(addAnimeToList);
             DoubleClickCmd = new ActionCommand(showDetails);
         }
+
+        public SeasonalAnime Anime { get; }
 
         public ActionCommand AddAnimeToListCmd { get; }
 

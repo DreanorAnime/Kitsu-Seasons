@@ -15,5 +15,6 @@ namespace KitsuSeasons.Interfaces
         void FilterResults(ObservableCollection<ISeasonExpander> seasonExpanders, string filterText, bool includeNsfw);
         bool DoesFilterApply(ISeasonEntry entry, string filter, bool includeNsfw);
         int GetCurrentSeasonIndex();
+        void SortResults(ObservableCollection<ISeasonExpander> seasonExpanders, int activeSort);
     }
 }

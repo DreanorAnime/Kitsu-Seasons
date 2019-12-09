@@ -1,10 +1,13 @@
-﻿using ModelViewViewModel.commands;
+﻿using KitsuSeasons.Models;
+using ModelViewViewModel.commands;
 using System.ComponentModel;
 
 namespace KitsuSeasons.Interfaces
 {
     public interface ISeasonEntry : INotifyPropertyChanged
     {
+        SeasonalAnime Anime { get; }
+
         string ImagePath { get; }
 
         string Name { get; }

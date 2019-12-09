@@ -135,5 +135,27 @@ namespace KitsuSeasons.Logic
             string c = a.ToLower();
             return c.Equals(b) || c.Contains(b);
         }
+
+        public void SortResults(ObservableCollection<ISeasonExpander> seasonExpanders, int activeSort)
+        {
+            foreach (var expander in seasonExpanders)
+            {
+                if (activeSort == 1)
+                {
+                    expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderBy(x => CompareDate(x.Anime.StartDate)));
+
+                }
+                if (activeSort == 2)
+                {
+                    expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderBy(x => CompareDate(x.Anime.EndDate)));
+                }
+            }
+        }
+
+        private static DateTime CompareDate(string startDate)
+        {
+            DateTime.TryParse(startDate.Replace("*", string.Empty), out DateTime dt);
+            return dt;
+        }
     }
 }

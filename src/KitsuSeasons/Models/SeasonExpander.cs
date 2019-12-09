@@ -15,7 +15,7 @@ namespace KitsuSeasons.Models
         public ObservableCollection<ISeasonEntry> SeasonEntries
         {
             get { return Get(x => x.SeasonEntries); }
-            private set { Set(x => x.SeasonEntries, value); }
+            set { Set(x => x.SeasonEntries, value); }
         }
 
         public string Header

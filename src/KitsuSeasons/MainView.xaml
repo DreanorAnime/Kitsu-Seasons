@@ -71,7 +71,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -130,11 +130,22 @@
                         Margin="0 12 6 12"
                         Orientation="Horizontal"
                         HorizontalAlignment="Right">
+
+                
                 <CheckBox IsChecked="{Binding Path=IncludeNsfw}"
                           BorderThickness="0"
                           Content="Include nsfw results"
                           Margin="0 0 12 0"/>
-                
+
+                <Controls:SplitButton 
+                    SelectedIndex="{Binding Path=ActiveSort, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0 0 12 0"
+                    ItemsSource="{Binding Path=SortActions, UpdateSourceTrigger=PropertyChanged}">
+                    <Controls:SplitButton.Icon>
+                        <iconPacks:PackIconMaterial Kind="Sort" />
+                    </Controls:SplitButton.Icon>
+                </Controls:SplitButton>
+
                 <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}"
                      BorderThickness="0"
                      Width="250"

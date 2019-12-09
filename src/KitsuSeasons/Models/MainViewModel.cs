@@ -1,7 +1,9 @@
-﻿using KitsuSeasons.Interfaces;
+﻿using KitsuSeasons.Enums;
+using KitsuSeasons.Interfaces;
 using ModelViewViewModel.Base;
 using ModelViewViewModel.commands;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -30,6 +32,8 @@ namespace KitsuSeasons.Models
             Username = saveData.Username;
             SeasonList = controller.PopulateSeasonSelection();
             SelectedSeason = SeasonList[controller.GetCurrentSeasonIndex()];
+
+            SortActions = new List<string> { "No Sort", "by Start Date", "by End Date"};
 
             FilterText = string.Empty;
             SeasonExpanders = new ObservableCollection<ISeasonExpander>
@@ -99,6 +103,18 @@ namespace KitsuSeasons.Models
             set { Set(x => x.IncludeNsfw, value); }
         }
 
+        public List<string> SortActions
+        {
+            get { return Get(x => x.SortActions); }
+            set { Set(x => x.SortActions, value); }
+        }
+
+        public int ActiveSort
+        {
+            get { return Get(x => x.ActiveSort); }
+            set { Set(x => x.ActiveSort, value); }
+        }
+
         private void SeasonEntries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add )
@@ -139,6 +155,11 @@ namespace KitsuSeasons.Models
                 || e.PropertyName == GetPropertyName(x => x.IncludeNsfw))
             {
                 controller.FilterResults(SeasonExpanders, FilterText, IncludeNsfw);
+            }
+
+            if (e.PropertyName == GetPropertyName(x => x.ActiveSort))
+            {
+                controller.SortResults(SeasonExpanders, ActiveSort);
             }
         }
     }

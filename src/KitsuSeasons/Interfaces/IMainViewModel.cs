@@ -1,4 +1,6 @@
-﻿using ModelViewViewModel.commands;
+﻿using KitsuSeasons.Enums;
+using ModelViewViewModel.commands;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -31,5 +33,9 @@ namespace KitsuSeasons.Interfaces
         bool IncludeNsfw { get; set; }
 
         IProgressViewModel ProgressModel { get; }
+
+        List<string> SortActions { get; }
+
+        int ActiveSort { get; }
     }
 }
