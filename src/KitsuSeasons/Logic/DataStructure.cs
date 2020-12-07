@@ -19,9 +19,9 @@ namespace KitsuSeasons.Logic
                 Directory.CreateDirectory(HomeFolder);
             }
 
-            if (!Directory.Exists(HomeFolder))
+            if (!Directory.Exists(ImageFolder))
             {
-                Directory.CreateDirectory(HomeFolder);
+                Directory.CreateDirectory(ImageFolder);
             }
         }
 
