@@ -1,8 +1,10 @@
-﻿using KitsuSeasons.Interfaces;
+﻿using System;
+using KitsuSeasons.Interfaces;
 using KitsuSeasons.Logic;
 using KitsuSeasons.Models;
 using MahApps.Metro.Controls;
 using System.IO;
+using System.Windows;
 
 namespace KitsuSeasons
 {

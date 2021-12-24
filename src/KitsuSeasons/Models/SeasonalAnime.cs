@@ -27,7 +27,7 @@ namespace KitsuSeasons.Models
             }
 
             AgeRating = UppercaseFirst(GetValueOrDefault((string)attributes.ageRating));
-            Nsfw = string.IsNullOrWhiteSpace((string)attributes.nsfw) ? false : (bool)attributes.nsfw;
+            Nsfw = !string.IsNullOrWhiteSpace((string)attributes.nsfw) && (bool)attributes.nsfw;
             StatusInlist = (Status)Enum.Parse(typeof(Status), status);
             IsInList = isInList;
             Season = season;

@@ -25,14 +25,12 @@ namespace KitsuSeasons.Logic
             }
         }
 
-        public static string HomeFolder { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), HomeFolderName); } }
+        private static string HomeFolder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), HomeFolderName);
 
-        public static string ImageFolder { get { return Path.Combine(HomeFolder, ImageFolderName); } }
+        public static string ImageFolder => Path.Combine(HomeFolder, ImageFolderName);
 
         public static void Save(SaveData saveData)
         {
-            string serializedSaveData = string.Empty;
-
             if (File.Exists(SaveFilePath))
             {
                 var json = File.ReadAllText(SaveFilePath);
@@ -50,7 +48,7 @@ namespace KitsuSeasons.Logic
                 }
             }
     
-            serializedSaveData = JsonConvert.SerializeObject(saveData, Formatting.Indented);
+            var serializedSaveData = JsonConvert.SerializeObject(saveData, Formatting.Indented);
 
             if (!string.IsNullOrWhiteSpace(serializedSaveData))
             {
@@ -60,13 +58,10 @@ namespace KitsuSeasons.Logic
 
         public static SaveData Load()
         {
-            if (File.Exists(SaveFilePath))
-            {
-                var json = File.ReadAllText(SaveFilePath);
-                return JsonConvert.DeserializeObject<SaveData>(json);
-            }
-
-            return new SaveData();
+            if (!File.Exists(SaveFilePath)) return new SaveData();
+            
+            var json = File.ReadAllText(SaveFilePath);
+            return JsonConvert.DeserializeObject<SaveData>(json);
         }
     }
 }

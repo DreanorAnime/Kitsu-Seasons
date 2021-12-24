@@ -10,9 +10,9 @@ using System.Diagnostics;
 
 namespace KitsuSeasons.Models
 {
-    public class MainViewModel : ViewModelBase<IMainViewModel>, IMainViewModel
+    public sealed class MainViewModel : ViewModelBase<IMainViewModel>, IMainViewModel
     {
-        private IController controller;
+        private readonly IController controller;
 
         public ActionCommand OpenOptionsCmd => new ActionCommand(() => OptionsAreVisible = true);
         public ActionCommand CreateAccountCmd => new ActionCommand(() => Process.Start("https://kitsu.io/"));
@@ -117,16 +117,15 @@ namespace KitsuSeasons.Models
 
         private void SeasonEntries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add )
+            if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add) return;
+            
+            if (ProgressModel.ProgressValue != ProgressModel.ProgressMaximum)
             {
-                if (ProgressModel.ProgressValue != ProgressModel.ProgressMaximum)
-                {
-                    SetProgress();
-                }
-
-                var entry = (ISeasonEntry)e.NewItems[0];
-                entry.IsHidden = controller.DoesFilterApply(entry, FilterText.ToLower(), IncludeNsfw);
+                SetProgress();
             }
+
+            var entry = (ISeasonEntry)e.NewItems[0];
+            entry.IsHidden = controller.DoesFilterApply(entry, FilterText.ToLower(), IncludeNsfw);
         }
 
         private void SetProgress()

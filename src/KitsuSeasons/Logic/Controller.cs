@@ -10,7 +10,7 @@ namespace KitsuSeasons.Logic
 {
     public class Controller : IController
     {
-        private AnimeJob animeJob;
+        private readonly AnimeJob animeJob;
 
         public Controller()
         {
@@ -117,10 +117,10 @@ namespace KitsuSeasons.Logic
 
         public bool DoesFilterApply(ISeasonEntry entry, string filter, bool includeNsfw)
         {
-            bool shouldBeHidden = !(EqualOrContains(entry.Name, filter)
-                           || EqualOrContains(entry.Status, filter)
-                           || EqualOrContains(entry.Type, filter)
-                           || EqualOrContains(entry.Rating, filter));
+            var shouldBeHidden = !(EqualOrContains(entry.Name, filter)
+                                   || EqualOrContains(entry.Status, filter)
+                                   || EqualOrContains(entry.Type, filter)
+                                   || EqualOrContains(entry.Rating, filter));
 
             if (!shouldBeHidden && entry.Nsfw && !includeNsfw)
             {
@@ -132,7 +132,7 @@ namespace KitsuSeasons.Logic
 
         private bool EqualOrContains(string a, string b)
         {
-            string c = a.ToLower();
+            var c = a.ToLower();
             return c.Equals(b) || c.Contains(b);
         }
 
@@ -140,14 +140,14 @@ namespace KitsuSeasons.Logic
         {
             foreach (var expander in seasonExpanders)
             {
-                if (activeSort == 1)
+                switch (activeSort)
                 {
-                    expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderBy(x => CompareDate(x.Anime.StartDate)));
-
-                }
-                if (activeSort == 2)
-                {
-                    expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderBy(x => CompareDate(x.Anime.EndDate)));
+                    case 1:
+                        expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderBy(x => CompareDate(x.Anime.StartDate)));
+                        break;
+                    case 2:
+                        expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderBy(x => CompareDate(x.Anime.EndDate)));
+                        break;
                 }
             }
         }

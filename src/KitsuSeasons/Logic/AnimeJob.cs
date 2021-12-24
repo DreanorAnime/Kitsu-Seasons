@@ -30,10 +30,7 @@ namespace KitsuSeasons.Logic
 
         public void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason, Action<int> setMaxProgress)
         {
-            if (cts != null)
-            {
-                cts.Cancel();
-            }
+            cts?.Cancel();
             cts = new CancellationTokenSource();
 
             SeasonExpanders = seasonExpanders;
@@ -60,9 +57,9 @@ namespace KitsuSeasons.Logic
                 var result = await Anime.GetSeason(season, year);
 
                 await GetSeasonData(result, token);
-                ExecuteWithDispatcher(() => SetMaxProgress((int)result.meta.count));
+                ExecuteWithDispatcher(() => SetMaxProgress((int) result.meta.count));
 
-                await LoopSeasons((string)result.links.next, token);
+                await LoopSeasons((string) result.links.next, token);
 
                 if (token.IsCancellationRequested)
                 {
@@ -71,6 +68,7 @@ namespace KitsuSeasons.Logic
             }
             catch
             {
+                // ignored
             }
         }
    
@@ -89,8 +87,9 @@ namespace KitsuSeasons.Logic
             {
                 await LoopSeasons((string)result.links.next, token);
             }
-            catch (Exception)
+            catch
             {
+                // ignored
             }
 
             return season;
@@ -115,14 +114,9 @@ namespace KitsuSeasons.Logic
 
                 var animeDetails = await Anime.GetAnime(id);
 
-                if (anime.data.Count > 0)
-                {
-                    seasonalAnime = new SeasonalAnime(id, name, (string)anime.data[0].attributes.status, item.attributes, SelectedSeason.ToString(), true); 
-                }
-                else
-                {
-                    seasonalAnime = new SeasonalAnime(id, name, (string)item.attributes.status, item.attributes, SelectedSeason.ToString(), false);
-                }
+                seasonalAnime = anime.data.Count > 0 
+                    ? new SeasonalAnime(id, name, (string)anime.data[0].attributes.status, item.attributes, SelectedSeason.ToString(), true) 
+                    : new SeasonalAnime(id, name, (string)item.attributes.status, item.attributes, SelectedSeason.ToString(), false);
 
                 string posterImage = PlaceHolderImage;
                 
@@ -212,7 +206,7 @@ namespace KitsuSeasons.Logic
         {
             ExecuteWithDispatcher(() => 
             {
-                for (int i = 0; i < SeasonExpanders.Count(); i++)
+                for (var i = 0; i < SeasonExpanders.Count(); i++)
                 {
                     SeasonExpanders[i].SeasonEntries.Clear();
                 }
@@ -221,27 +215,26 @@ namespace KitsuSeasons.Logic
 
         private int GetListIndexToModify(SeasonalAnime anime)
         {
-            int index = 0;
-            if (anime.IsInList)
+            var index = 0;
+            if (!anime.IsInList) return index;
+            
+            switch (anime.StatusInlist)
             {
-                switch (anime.StatusInlist)
-                {
-                    case Status.current:
-                        index = 1;
-                        break;
-                    case Status.completed:
-                        index = 2;
-                        break;
-                    case Status.on_hold:
-                        index = 3;
-                        break;
-                    case Status.dropped:
-                        index = 4;
-                        break;
-                    case Status.planned:
-                        index = 5;
-                        break;
-                }
+                case Status.current:
+                    index = 1;
+                    break;
+                case Status.completed:
+                    index = 2;
+                    break;
+                case Status.on_hold:
+                    index = 3;
+                    break;
+                case Status.dropped:
+                    index = 4;
+                    break;
+                case Status.planned:
+                    index = 5;
+                    break;
             }
 
             return index;
@@ -249,15 +242,22 @@ namespace KitsuSeasons.Logic
 
         private string LoadImage(string url, int animeId)
         {
-            string location = Path.Combine(DataStructure.ImageFolder, $"{animeId}.jpg");
+            var location = Path.Combine(DataStructure.ImageFolder, $"{animeId}.jpg");
             if (File.Exists(location))
             {
                 return location;
             }
 
-            using (WebClient client = new WebClient())
+            try
             {
-                client.DownloadFile(new Uri(url), location);
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile(new Uri(url), location);
+                }
+            }
+            catch (Exception e)
+            {
+                return location;
             }
 
             return location;
