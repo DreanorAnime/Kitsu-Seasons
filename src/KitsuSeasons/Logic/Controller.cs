@@ -147,10 +147,10 @@ namespace KitsuSeasons.Logic
                         expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderBy(x => CompareDate(x.Anime.StartDate)));
                         break;
                     case 2:
-                        expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderBy(x => CompareDate(x.Anime.EndDate)));
+                        expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderByDescending(x => CompareDate(x.Anime.EndDate)));
                         break;
                     case 3:
-                        expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderBy(x => x.Anime.AverageRating));
+                        expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderByDescending(x => x.Anime.AverageRating));
                         break;
                 }
             }
