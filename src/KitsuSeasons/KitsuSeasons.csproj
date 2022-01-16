@@ -87,7 +87,6 @@
     <Compile Include="Enums\AgeRating.cs" />
     <Compile Include="Enums\AiringStatus.cs" />
     <Compile Include="Enums\SeasonType.cs" />
-    <Compile Include="Enums\Sort.cs" />
     <Compile Include="Interfaces\IController.cs" />
     <Compile Include="Interfaces\IDetailViewModel.cs" />
     <Compile Include="Interfaces\IProgressViewModel.cs" />
@@ -97,6 +96,7 @@
     <Compile Include="Logic\AnimeJob.cs" />
     <Compile Include="Logic\Controller.cs" />
     <Compile Include="Logic\DataStructure.cs" />
+    <Compile Include="Logic\MessageBoxSystem.cs" />
     <Compile Include="Logic\Validator.cs" />
     <Compile Include="Models\DetailViewModel.cs" />
     <Compile Include="Models\ProgressViewModel.cs" />

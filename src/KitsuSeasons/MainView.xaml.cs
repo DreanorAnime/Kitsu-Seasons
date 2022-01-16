@@ -1,17 +1,15 @@
-﻿using System;
-using KitsuSeasons.Interfaces;
+﻿using KitsuSeasons.Interfaces;
 using KitsuSeasons.Logic;
 using KitsuSeasons.Models;
 using MahApps.Metro.Controls;
-using System.IO;
-using System.Windows;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace KitsuSeasons
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainView : MetroWindow, IMainView
+    public partial class MainView : IMainView
     {
         private const string DummyPassword = "******";
 
@@ -22,6 +20,8 @@ namespace KitsuSeasons
             Passwordbox.LostFocus += Passwordbox_LostFocus;
             Loaded += MainView_Loaded;
             DataStructure.SetupFolders();
+            
+            MessageBoxSystem.ShowMessageBox += async (title, message) => await this.ShowMessageAsync(title, message);
         }
 
         private void MainView_Loaded(object sender, System.Windows.RoutedEventArgs e)

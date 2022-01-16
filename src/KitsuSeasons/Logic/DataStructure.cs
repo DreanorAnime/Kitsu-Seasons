@@ -1,6 +1,11 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using KitsuSeasons.Models;
+using KitsuSeasons.Properties;
 using Newtonsoft.Json;
 
 namespace KitsuSeasons.Logic
@@ -10,7 +15,10 @@ namespace KitsuSeasons.Logic
         private const string HomeFolderName = "KitsuSeasons";
         private const string ImageFolderName = "Images";
         private const string FileName = "SaveData.json";
-        private static string SaveFilePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), HomeFolderName, FileName);
+
+        private static string SaveFilePath =>
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), HomeFolderName,
+                FileName);
 
         public static void SetupFolders()
         {
@@ -23,9 +31,32 @@ namespace KitsuSeasons.Logic
             {
                 Directory.CreateDirectory(ImageFolder);
             }
+
+            var placeholder = Path.Combine(ImageFolder, "placeholder.jpg");
+            if (!File.Exists(placeholder))
+            {
+                CreatePlaceholderImage(placeholder);
+            }
         }
 
-        private static string HomeFolder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), HomeFolderName);
+        private static void CreatePlaceholderImage(string path)
+        {
+            var resource = Application.GetResourceStream(new Uri("/img/placeholder.jpg", UriKind.RelativeOrAbsolute));
+            Image image = new Image();
+            if (resource != null)
+            {
+                image.Source = BitmapFrame.Create(resource.Stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                var encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create((BitmapSource) image.Source));
+                using (FileStream stream = new FileStream(path, FileMode.Create))
+                {
+                    encoder.Save(stream);
+                }
+            }
+        }
+
+        private static string HomeFolder =>
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), HomeFolderName);
 
         public static string ImageFolder => Path.Combine(HomeFolder, ImageFolderName);
 
@@ -47,7 +78,7 @@ namespace KitsuSeasons.Logic
                     saveData.Password = deserializedData.Password;
                 }
             }
-    
+
             var serializedSaveData = JsonConvert.SerializeObject(saveData, Formatting.Indented);
 
             if (!string.IsNullOrWhiteSpace(serializedSaveData))
@@ -59,7 +90,7 @@ namespace KitsuSeasons.Logic
         public static SaveData Load()
         {
             if (!File.Exists(SaveFilePath)) return new SaveData();
-            
+
             var json = File.ReadAllText(SaveFilePath);
             return JsonConvert.DeserializeObject<SaveData>(json);
         }

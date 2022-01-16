@@ -19,7 +19,8 @@
                       GlowBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
                       NonActiveGlowBrush="{DynamicResource ResourceKey=LightPurpleBrush}"
                       TitleCaps="False"
-                      Width="924">
+                      MinWidth="941"
+                      Width="941">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button Content="settings" 
@@ -131,7 +132,6 @@
                         Orientation="Horizontal"
                         HorizontalAlignment="Right">
 
-                
                 <CheckBox IsChecked="{Binding Path=IncludeNsfw}"
                           BorderThickness="0"
                           Content="Include nsfw results"

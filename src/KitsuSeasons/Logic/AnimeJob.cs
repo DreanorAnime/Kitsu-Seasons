@@ -19,7 +19,7 @@ namespace KitsuSeasons.Logic
 {
     public class AnimeJob
     {
-        private const string PlaceHolderImage = "https://raw.githubusercontent.com/DreanorAnime/Kitsu-Seasons/master/src/KitsuSeasons/img/placeholder.jpg";
+        private const string PlaceHolderImage = "placeholder.jpg";
 
         private CancellationTokenSource cts;
         private int UserId { get; set; }
@@ -28,7 +28,7 @@ namespace KitsuSeasons.Logic
         private Details details;
         private ISelectSeason SelectedSeason { get; set; }
 
-        public void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason, Action<int> setMaxProgress)
+        public void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason, Action<int> setMaxProgress, Action<bool> progressVisible)
         {
             cts?.Cancel();
             cts = new CancellationTokenSource();
@@ -39,11 +39,25 @@ namespace KitsuSeasons.Logic
             new Task(async () =>
             {
                 var data = DataStructure.Load();
-                var auth = await Authentication.Authenticate(data.Username, new AES().Decrypt(data.Password));
-                var user = await User.GetUserAsync(data.Username);
-                UserId = (int)user.data[0].id;
-                SelectedSeason = selectedSeason;
 
+                dynamic user;
+                try
+                {
+                    var auth = await Authentication.Authenticate(data.Username, new AES().Decrypt(data.Password));
+                    user = await User.GetUserAsync(data.Username);
+                    UserId = (int)user.data[0].id;
+                }
+                catch (Exception e)
+                {
+                    ExecuteWithDispatcher(() =>
+                    {
+                        progressVisible(false);
+                        MessageBoxSystem.OnShowMessageBox("Error", "Unable to authenticate. Please try again.");
+                    });
+                    return;
+                }
+               
+                SelectedSeason = selectedSeason;
                 LoadEntireSeason(selectedSeason.SeasonDisplay, selectedSeason.Year, cts.Token);
             }, cts.Token).Start();
         }
@@ -126,7 +140,7 @@ namespace KitsuSeasons.Logic
                     posterImage = (string)animeDetails.data.attributes.posterImage.small;
                 }
               
-                ExecuteWithDispatcher(() => AddSeasonalAnimeToList(seasonalAnime, posterImage));
+                ExecuteWithDispatcher(() => AddSeasonalAnimeToList(seasonalAnime, posterImage, jObject != null));
             }
 
             return season;
@@ -137,9 +151,9 @@ namespace KitsuSeasons.Logic
             await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, action);
         }
 
-        private void AddSeasonalAnimeToList(SeasonalAnime anime, string smallImage)
+        private void AddSeasonalAnimeToList(SeasonalAnime anime, string smallImage, bool imageFound)
         {
-            var imageLocation = LoadImage(smallImage, anime.Id);
+            var imageLocation = LoadImage(smallImage, anime.Id, imageFound);
 
             int index = GetListIndexToModify(anime);
 
@@ -240,8 +254,13 @@ namespace KitsuSeasons.Logic
             return index;
         }
 
-        private string LoadImage(string url, int animeId)
+        private string LoadImage(string url, int animeId, bool imageFound)
         {
+            if (!imageFound)
+            {
+                return Path.Combine(DataStructure.ImageFolder, PlaceHolderImage);
+            }
+            
             var location = Path.Combine(DataStructure.ImageFolder, $"{animeId}.jpg");
             if (File.Exists(location))
             {
@@ -257,7 +276,7 @@ namespace KitsuSeasons.Logic
             }
             catch (Exception e)
             {
-                return location;
+                return Path.Combine(DataStructure.ImageFolder, PlaceHolderImage);
             }
 
             return location;

@@ -58,6 +58,7 @@ namespace KitsuSeasons.Logic
                 list.Add(new SelectSeason(Season.summer, year));
                 list.Add(new SelectSeason(Season.spring, year));
                 list.Add(new SelectSeason(Season.winter, year));
+                list.Add(new SelectSeason(Season.year, year));
             }
 
             return new ObservableCollection<ISelectSeason>(list);
@@ -70,19 +71,19 @@ namespace KitsuSeasons.Logic
                 case 1:
                 case 2:
                 case 3:
-                    return 7;
+                    return 8;
                 case 4:
                 case 5:
                 case 6:
-                    return 6;
+                    return 7;
                 case 7:
                 case 8:
                 case 9:
-                    return 5;
+                    return 6;
                 case 10:
                 case 11:
                 case 12:
-                    return 4;
+                    return 5;
                 default:
                     return 0;
             }
@@ -98,9 +99,9 @@ namespace KitsuSeasons.Logic
             return DataStructure.Load();
         }
 
-        public void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason, Action<int> setMaxProgress)
+        public void LoadSeasons(ObservableCollection<ISeasonExpander> seasonExpanders, ISelectSeason selectedSeason, Action<int> setMaxProgress, Action<bool> progressVisible)
         {
-            animeJob.LoadSeasons(seasonExpanders, selectedSeason, setMaxProgress);
+            animeJob.LoadSeasons(seasonExpanders, selectedSeason, setMaxProgress, progressVisible);
         }
 
         public void FilterResults(ObservableCollection<ISeasonExpander> seasonExpanders, string filterText, bool includeNsfw)
@@ -129,7 +130,7 @@ namespace KitsuSeasons.Logic
 
             return shouldBeHidden;
         }
-
+        
         private bool EqualOrContains(string a, string b)
         {
             var c = a.ToLower();
@@ -147,6 +148,9 @@ namespace KitsuSeasons.Logic
                         break;
                     case 2:
                         expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderBy(x => CompareDate(x.Anime.EndDate)));
+                        break;
+                    case 3:
+                        expander.SeasonEntries = new ObservableCollection<ISeasonEntry>(expander.SeasonEntries.OrderBy(x => x.Anime.AverageRating));
                         break;
                 }
             }

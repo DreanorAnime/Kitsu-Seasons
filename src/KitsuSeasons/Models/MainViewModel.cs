@@ -13,7 +13,6 @@ namespace KitsuSeasons.Models
     public sealed class MainViewModel : ViewModelBase<IMainViewModel>, IMainViewModel
     {
         private readonly IController controller;
-
         public ActionCommand OpenOptionsCmd => new ActionCommand(() => OptionsAreVisible = true);
         public ActionCommand CreateAccountCmd => new ActionCommand(() => Process.Start("https://kitsu.io/"));
         public ActionCommand PreviousSeasonCmd => new ActionCommand(() => SelectedSeason = controller.GetPreviousSeason(SelectedSeason, SeasonList));
@@ -21,7 +20,7 @@ namespace KitsuSeasons.Models
         public ActionCommand RefreshCmd => new ActionCommand(() => 
         {
             ProgressModel.ResetValues();
-            controller.LoadSeasons(SeasonExpanders, SelectedSeason, x => ProgressModel.ProgressMaximum = x);
+            controller.LoadSeasons(SeasonExpanders, SelectedSeason, x => ProgressModel.ProgressMaximum = x, y => ProgressModel.ProgressIsVisible = y);
         });
 
         public MainViewModel(IController controller)
@@ -33,7 +32,7 @@ namespace KitsuSeasons.Models
             SeasonList = controller.PopulateSeasonSelection();
             SelectedSeason = SeasonList[controller.GetCurrentSeasonIndex()];
 
-            SortActions = new List<string> { "No Sort", "by Start Date", "by End Date"};
+            SortActions = new List<string> { "No Sort", "by Start Date", "by End Date", "by Score"};
 
             FilterText = string.Empty;
             SeasonExpanders = new ObservableCollection<ISeasonExpander>
@@ -114,7 +113,7 @@ namespace KitsuSeasons.Models
             get { return Get(x => x.ActiveSort); }
             set { Set(x => x.ActiveSort, value); }
         }
-
+        
         private void SeasonEntries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add) return;
